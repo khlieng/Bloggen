@@ -1,0 +1,207 @@
+@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Oswald:400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+* {
+	padding: 0px;
+	margin: 0px;
+}
+
+header, section, footer, aside, nav, article, figure, figcaption, hgroup {
+	display: block;
+}
+
+a {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#wrap {
+	width: 960px;
+	margin: 0px auto;
+}
+
+#top_line {
+	height: 5px;
+	background: #9EFF1E;
+}
+
+#toolbar {
+	float: right;
+	font: 10px Oswald, sans-serif;
+}
+
+#main_header h1 {
+	padding-top: 10px;
+	padding-left: 20px;
+	font: 36px Oswald, sans-serif;
+	display: none;
+}
+
+#main_header {
+	//padding-left: 20px;
+	margin-bottom: -5px;
+	background: #85CEFF;
+}
+
+#menu {
+	padding: 5px 0px;
+	background: #000000;
+	color: #FFFFFF;
+	font: 16px Oswald, sans-serif;
+	//border-left: 10px solid #9EFF1E;
+	//border-right: 10px solid #9EFF1E;
+}
+
+#menu a {
+	color: #FFFFFF;
+}
+
+#menu a:hover {
+	color: #85CEFF;
+	text-decoration: none;
+}	
+
+#menu li {
+	display: inline-block;
+	margin-right: 20px;
+	margin-left: 22px
+}
+
+#content {
+	float: left;
+	width: 660px;
+	padding-bottom: 30px;
+}
+
+#content article p { color: #202020; }
+
+#content article {
+	margin: 20px;
+	font: 15px Open Sans, sans-serif;
+	border-bottom: 1px dashed #AAAAAA;
+}
+
+#content article header {
+	text-align: center;
+}
+
+#content article figure {
+	text-align: center;
+	margin: 20px;	
+}
+
+#content article h1 {
+	font: 28px Oswald, sans-serif;
+}
+
+#content article h1 a:hover {
+	color: #85CEFF;
+	text-decoration: none;
+}
+
+#content article header {
+	margin-bottom: 15px;
+}
+
+#content article footer {
+	margin-top: 10px;
+	padding-top: 5px;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	font-size: 11px;
+	border-top: 1px dashed #AAAAAA;
+}
+
+#pagenav {
+	margin: 30px 20px;
+	font: 15px Open Sans, sans-serif;
+}
+
+#sidebar {
+	float: left;
+	width: 250px;
+	font: 14px Open Sans, sans-serif;
+	margin-left: 30px;
+	margin-top: 20px;
+	margin-right: 20px;
+}
+
+#archive p, #tags p {
+	margin-left: 10px;
+	margin-bottom: 5px;
+}
+
+#sidebar section {
+	margin-bottom: 20px;
+}
+
+#sidebar h1 {
+	font: 20px Oswald, sans-serif;
+	margin-bottom: 10px;
+}
+
+#footer {
+	clear: both;
+	border-top: 10px solid #85CEFF;
+	font: 16px Oswald, sans-serif;
+	text-align: center;
+	padding: 10px;
+	background: #000000;
+	color: #85CEFF;
+}
+
+#loginform {
+	font: 14px Oswald, sans-serif;
+	padding-bottom: 30px;
+}
+
+#loginform p {
+	margin-bottom: 5px;
+}
+
+#loginform a {
+	font: 10px Oswald, sans-serif;
+	margin-left: 10px;
+}
+
+#loginform input {
+	padding: 3px;
+	font: 12px Open Sans, sans-serif;
+}
+
+#loginform input[type="text"], #loginform input[type="password"] {	
+	height:25px;
+	width: 160px;
+}
+
+#loginform input[type="submit"] {
+	background: #000000;
+	font: 16px Oswald, sans-serif;
+	color: #FFFFFF;
+	border: none;
+	padding: 2px;
+	margin-right: 90px;
+	float: right;
+	width: 160px;
+}
+
+#loginform input[type="submit"]:hover {
+	color: #85CEFF;
+}
+
+.headerwrap {
+	width: 960px;
+	margin: 0 auto;	
+}
+
+.date {
+	font-size: 12px;
+	color: #303030;
+}
+
+.floatleft { float: left; }
+.floatright { float: right; }
+	
