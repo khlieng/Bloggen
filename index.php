@@ -117,7 +117,7 @@
 	</body>
 	<script type="text/javascript">
 	$(document).ready(function() {
-		$("#main_header h1").fadeIn("slow", function() {});
+		$("#main_header h1").fadeIn("slow");
 	});
 	</script>
 </html>

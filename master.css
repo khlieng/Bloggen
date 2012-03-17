@@ -94,12 +94,13 @@ a:hover {
 }
 
 #content article h1 {
-	font: 28px Oswald, sans-serif;
+	font: 28px Oswald, sans-serif;	
+	
 }
 
 #content article h1 a:hover {
 	color: #85CEFF;
-	text-decoration: none;
+	text-decoration: none;	
 }
 
 #content article header {

@@ -1,58 +1,8 @@
 <?php 
-if (isset($_GET['module']))
+include('dbconn.php');
+
+function echoPost($data, $i)
 {
-	switch ($_GET['module'])
-	{
-		case 'register':
-			break;
-			
-		case 'password':
-			break;
-			
-		case 'newpost':
-			break;
-	}
-}
-mysql_connect('kark.hin.no', 'gruppe6', 'R2weWXNnpRjacTdq');
-mysql_select_db('gruppe6');
-
-$data = mysql_query('SELECT * FROM posts ORDER BY datetime');
-$num_posts = mysql_numrows($data);
-
-/*$blog = simplexml_load_file('blog.xml');
-$entries = array();
-foreach ($blog->entry as $entry)
-{
-	if (isset($_GET['tag']))
-	{
-		$tags = array_map('trim', explode(',', $entry->tags));
-		if (in_array($_GET['tag'], $tags))
-		{
-			$entries[] = $entry;	
-		}
-	}
-	else
-	{
-		$entries[] = $entry;
-	}		
-}*/
-
-$max_entries_per_page = 5;
-
-$start_id = $num_posts - 1;
-if (isset($_GET['from']))
-{
-	$start_id = $_GET['from'];
-}
-
-$end_id = $start_id - $max_entries_per_page;
-if ($end_id < -1)
-{
-	$end_id = -1;
-}
-
-for ($i = $start_id; $i > $end_id; $i--)
-{	
 	echo '<article>';
 	if (isset($_SESSION['login']))
 	{
@@ -66,8 +16,8 @@ for ($i = $start_id; $i > $end_id; $i--)
 	</header>
 	<p>'.utf8_decode(mysql_result($data, $i, 'content')).'</p>
 	<footer>
-		<div class="floatleft">'.utf8_decode(mysql_result($data, $i, 'datetime')).' | <a href="#">0 kommentarer</a></div><div class="floatright">Tags: ';
-	
+	<div class="floatleft">'.utf8_decode(mysql_result($data, $i, 'datetime')).' | <a href="#">0 kommentarer</a></div><div class="floatright">Tags: ';
+
 	$tags = array_map('trim', explode(',', utf8_decode(mysql_result($data, $i, 'tags'))));
 	for ($j = 0; $j < sizeof($tags); $j++)
 	{
@@ -82,42 +32,107 @@ for ($i = $start_id; $i > $end_id; $i--)
 	</article>';
 }
 
-$num_pages = $num_posts / $max_entries_per_page;
-
-if ($num_pages > 1)
+if (isset($_GET['module']))
 {
-	echo '<section id="pagenav">';
-	if ($start_id < $num_posts - 1)
+	switch ($_GET['module'])
 	{
-		echo '<a href="?from='.($start_id + $max_entries_per_page).'"><</a>';
+		case 'register':
+			break;
+			
+		case 'password':
+			break;
+			
+		case 'newpost':
+			break;
 	}
-	else 
+}
+
+if (isset($_GET['showid']))
+{
+	$data = mysql_query("SELECT * FROM posts WHERE id='".$_GET['showid']."';");
+	if (mysql_numrows($data) > 0)
 	{
-		echo '<a><</a>';
+		echoPost($data, 0);
+	}
+}
+else
+{
+	$data = mysql_query('SELECT * FROM posts ORDER BY datetime');
+	$num_posts = mysql_numrows($data);
+	
+	/*$blog = simplexml_load_file('blog.xml');
+	$entries = array();
+	foreach ($blog->entry as $entry)
+	{
+		if (isset($_GET['tag']))
+		{
+			$tags = array_map('trim', explode(',', $entry->tags));
+			if (in_array($_GET['tag'], $tags))
+			{
+				$entries[] = $entry;	
+			}
+		}
+		else
+		{
+			$entries[] = $entry;
+		}		
+	}*/
+	
+	$max_entries_per_page = 5;
+	
+	$start_id = $num_posts - 1;
+	if (isset($_GET['from']))
+	{
+		$start_id = $_GET['from'];
 	}
 	
-	for ($i = 0; $i < $num_pages; $i++)
+	$end_id = $start_id - $max_entries_per_page;
+	if ($end_id < -1)
 	{
-		if ($num_posts - 1 - $i * $max_entries_per_page == $start_id)
+		$end_id = -1;
+	}
+	
+	for ($i = $start_id; $i > $end_id; $i--)
+	{	
+		echoPost($data, $i);
+	}
+	
+	$num_pages = $num_posts / $max_entries_per_page;
+	
+	if ($num_pages > 1)
+	{
+		echo '<section id="pagenav">';
+		if ($start_id < $num_posts - 1)
 		{
-			echo '<a class="current" href="?from='.($num_posts - 1 - $i * $max_entries_per_page).'">'.($i + 1).'</a>';
+			echo '<a href="?from='.($start_id + $max_entries_per_page).'"><</a>';
 		}
 		else 
 		{
-			echo '<a href="?from='.($num_posts - 1 - $i * $max_entries_per_page).'">'.($i + 1).'</a>';
+			echo '<a><</a>';
 		}
+		
+		for ($i = 0; $i < $num_pages; $i++)
+		{
+			if ($num_posts - 1 - $i * $max_entries_per_page == $start_id)
+			{
+				echo '<a class="current" href="?from='.($num_posts - 1 - $i * $max_entries_per_page).'">'.($i + 1).'</a>';
+			}
+			else 
+			{
+				echo '<a href="?from='.($num_posts - 1 - $i * $max_entries_per_page).'">'.($i + 1).'</a>';
+			}
+		}
+		
+		if ($end_id >= 0)
+		{
+			echo '<a href="?from='.($start_id - $max_entries_per_page).'">></a>';
+		}
+		else 
+		{
+			echo '<a>></a>';
+		}
+		echo '</section>';
 	}
-	
-	if ($end_id >= 0)
-	{
-		echo '<a href="?from='.($start_id - $max_entries_per_page).'">></a>';
-	}
-	else 
-	{
-		echo '<a>></a>';
-	}
-	echo '</section>';
 }
-
 mysql_close();
 ?>
