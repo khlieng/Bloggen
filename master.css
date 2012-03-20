@@ -154,12 +154,32 @@ a:hover {
 	color: #85CEFF;
 }
 
+#registerform {
+	font: 14px Oswald, sans-serif;
+	margin-bottom: 10px;
+}
+
+#registerform p {
+	display: table;
+}
+
+#registerform input {
+	display: table-cell;
+}
+
+#registerform label {
+	display: table-cell;
+	width: 220px;
+	text-align: right;
+	padding-right: 10px;
+}
+
 #loginform {
 	font: 14px Oswald, sans-serif;
 	padding-bottom: 30px;
 }
 
-#loginform p {
+#loginform p, #registerform p {
 	margin-bottom: 5px;
 }
 
@@ -168,30 +188,29 @@ a:hover {
 	margin-left: 10px;
 }
 
-#loginform input {
+#loginform input[type="text"], #loginform input[type="password"], #registerform input[type="text"], #registerform input[type="password"] {
 	padding: 3px;
 	font: 12px Open Sans, sans-serif;
-}
-
-#loginform input[type="text"], #loginform input[type="password"] {	
 	height:25px;
 	width: 160px;
 }
 
-#loginform input[type="submit"] {
+#loginform input[type="submit"], #registerform input[type="submit"] {
 	background: #000000;
 	font: 16px Oswald, sans-serif;
 	color: #FFFFFF;
 	border: none;
-	padding: 2px;
+	padding: 5px;
 	margin-right: 90px;
 	float: right;
 	width: 160px;
 }
 
-#loginform input[type="submit"]:hover {
+#loginform input[type="submit"]:hover, #registerform input[type="submit"]:hover {
 	color: #85CEFF;
 }
+
+#register, #password { display: none; }
 
 .headerwrap {
 	width: 960px;

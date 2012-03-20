@@ -5,8 +5,19 @@
 		<link rel="stylesheet" href="master.css" />
 		<?php session_start(); ?>		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript">
+		window.onscroll = foo;
+
+		function foo()
+		{
+			if (window.pageYOffset >= window.innerHeight)
+			{
+				alert('Bunnen er nådd!');
+			}
+		}
+		</script>
 	</head> 
-	<body>
+	<body id="b">
 		<header id="main_header">
 			<div class="headerwrap">
 				<h1>KEN-HÅVARD'S BLOGG</h1>
@@ -20,6 +31,48 @@
 		</nav>
 		<div id="wrap">
 			<section id="content">
+				<article id="register">
+					<header>
+						<h1>Ny bruker</h1>
+					</header>
+					<form id="registerform" method="post" action="register.php">
+						<p>
+							<label for="name">Navn</label>
+							<input type="text" id="name" name="name" />
+						</p>
+						<p>
+							<label for="email">E-post</label>
+							<input type="text" id="email" name="email" />
+						</p>
+				   		<p>
+				   			<label for="pass">Passord</label>
+				   			<input type="password" id="pass" name="pass" />
+			   			</p>
+			   			<p>
+				   			<label for="pass">Bekreft passord</label>
+				   			<input type="password" id="pass2" name="pass2" />
+			   			</p>
+			   			<p>
+			   				<label></label>
+							<input type="submit" value="Registrer" />
+						</p>
+					</form>
+				</article>
+				<article id="password">
+					<header>
+						<h1>Glemt passord</h1>
+					</header>
+					<form id="registerform" method="post" action="newpass.php">
+						<p>
+							<label for="email">E-post</label>
+							<input type="text" id="email" name="email" />
+						</p>
+			   			<p>
+			   				<label></label>
+							<input type="submit" value="Send nytt passord" />
+						</p>
+					</form>
+				</article>
 				<?php include('listposts.php') ?>
 				<article>
 					<header>
@@ -72,8 +125,8 @@
 						<h1>Innlogging</h1>
 					</header>
 					<form id="loginform" method="post" action="login.php">
-						<p><input type="text" id="user" name="user" placeholder="Brukernavn" /><a href="#">Ny bruker?</a></p>
-				   		<p><input type="password" id="pass" name="pass" placeholder="Passord" /><a href="#">Glemt passordet?</a></p>
+						<p><input type="text" id="user" name="user" placeholder="Brukernavn" /><a href="#" onClick="slideToggle(\'#register\')">Ny bruker?</a></p>
+				   		<p><input type="password" id="pass" name="pass" placeholder="Passord" /><a href="#" onClick="slideToggle(\'#password\')">Glemt passordet?</a></p>
 						<input type="submit" value="Logg inn" />
 					</form>';
 				}
@@ -119,5 +172,17 @@
 	$(document).ready(function() {
 		$("#main_header h1").fadeIn("slow");
 	});
+
+	function slideToggle(element)
+	{
+		if ($(element).is(":visible"))
+		{
+			$(element).slideUp();
+		}
+		else
+		{
+			$(element).slideDown();
+		}
+	}
 	</script>
 </html>
