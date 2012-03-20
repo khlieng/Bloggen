@@ -1,5 +1,5 @@
 <DOCTYPE html>
-<html lang="nb">
+<html lang="no">
 	<head>
 		<title>Project Herp</title>
 		<link rel="stylesheet" href="master.css" />
@@ -35,22 +35,24 @@
 					<header>
 						<h1>Ny bruker</h1>
 					</header>
-					<form id="registerform" method="post" action="register.php">
+					<form class="form1" id="registerform" name="registerform" method="post" action="register.php">
 						<p>
 							<label for="name">Navn</label>
 							<input type="text" id="name" name="name" />
 						</p>
 						<p>
 							<label for="email">E-post</label>
-							<input type="text" id="email" name="email" />
+							<input type="text" id="email" name="email" onKeyUp="checkEmail('registerform')" onChange="checkEmail('registerform')" />
+							<label id="result" class="email_result"></label>
 						</p>
 				   		<p>
 				   			<label for="pass">Passord</label>
-				   			<input type="password" id="pass" name="pass" />
+				   			<input type="password" id="pass" name="pass" onKeyUp="checkPasswords('registerform')" onChange="checkPasswords('registerform')" />
+				   			<label id="password_result"></label>
 			   			</p>
 			   			<p>
 				   			<label for="pass">Bekreft passord</label>
-				   			<input type="password" id="pass2" name="pass2" />
+				   			<input type="password" id="pass2" name="pass2" onKeyUp="checkPasswords('registerform')" onChange="checkPasswords('registerform')" />
 			   			</p>
 			   			<p>
 			   				<label></label>
@@ -62,16 +64,22 @@
 					<header>
 						<h1>Glemt passord</h1>
 					</header>
-					<form id="registerform" method="post" action="newpass.php">
+					<form class="form1" id="newpassform" name="newpassform" method="post" action="newpass.php">
 						<p>
 							<label for="email">E-post</label>
-							<input type="text" id="email" name="email" />
+							<input type="text" id="email" name="email" onChange="checkEmail('newpassform')" />
 						</p>
 			   			<p>
 			   				<label></label>
 							<input type="submit" value="Send nytt passord" />
 						</p>
 					</form>
+				</article>
+				<article id="newpost">
+					<header>
+						<h1>Nytt innlegg</h1>
+					</header>
+					
 				</article>
 				<?php include('listposts.php') ?>
 				<article>
@@ -117,30 +125,7 @@
 					<p>Nam orci diam, tempor eget malesuada a, feugiat vel magna. Aenean hendrerit, nulla at pharetra tristique, augue nulla condimentum magna, id feugiat purus nisl et tortor. Quisque dapibus est vel dolor iaculis hendrerit.</p>
 				</section>
 				<section id="userinfo">
-				<?php
-				if (!isset($_SESSION['login']))
-				{
-					echo '
-					<header>
-						<h1>Innlogging</h1>
-					</header>
-					<form id="loginform" method="post" action="login.php">
-						<p><input type="text" id="user" name="user" placeholder="Brukernavn" /><a href="#" onClick="slideToggle(\'#register\')">Ny bruker?</a></p>
-				   		<p><input type="password" id="pass" name="pass" placeholder="Passord" /><a href="#" onClick="slideToggle(\'#password\')">Glemt passordet?</a></p>
-						<input type="submit" value="Logg inn" />
-					</form>';
-				}
-				else 
-				{
-					echo '
-					<header>
-						<h1>Brukerinfo</h1>
-					</header>
-					<form id="loginform" method="post" action="logout.php">
-						<input type="submit" value="Logg ut" />
-					</form>';
-				}
-				?>
+				<?php include('userinfo.php'); ?>
 	    		</section>
 				<section id="archive">
 					<header>
@@ -175,14 +160,37 @@
 
 	function slideToggle(element)
 	{
-		if ($(element).is(":visible"))
+		$(element + ":visible").slideUp();
+		$(element + ":hidden").slideDown();		
+	}
+
+	function checkEmail(form)
+	{
+		var email = document.forms[form].email.value;
+		var xmlHttp = new XMLHttpRequest();
+		xmlHttp.onreadystatechange = function() {
+			if (xmlHttp.readyState == 4)
+			{
+				document.getElementById('result').innerHTML = xmlHttp.responseText;	
+			}
+		}
+		xmlHttp.open('GET', 'checkemail.php?m=' + document.forms[form].email.value, true);
+		xmlHttp.send();			
+	}
+
+	function checkPasswords(form)
+	{
+		var p1 = document.forms[form].pass.value;
+		var p2 = document.forms[form].pass2.value;
+
+		if (p1 != p2)
 		{
-			$(element).slideUp();
+			document.getElementById('password_result').innerHTML = 'Passordene er ikke like.'
 		}
 		else
 		{
-			$(element).slideDown();
-		}
+			document.getElementById('password_result').innerHTML = null;
+		}	
 	}
 	</script>
 </html>

@@ -7,16 +7,17 @@ function echoPost($data, $i)
 	if (isset($_SESSION['login']))
 	{
 		echo '<section class="postOptions">
-			  <a href="deletepost.php?id='.$i.'">Slett</a><a href="#" onClick="alert(\'Ikke implementert :(\')">Endre</a>
+			  <a href="deletepost.php?id='.mysql_result($data, $i, 'id').'">Slett</a><a href="#" onClick="alert(\'Ikke implementert :(\')">Endre</a>
 			  </section>';
 	}
+	$datetime = date('d.m.Y H:i', strtotime(mysql_result($data, $i, 'datetime')));
 	echo '<header>
 	<h1>'.utf8_decode(mysql_result($data, $i, 'title')).'</h1>
-	<p class="date">'.utf8_decode(mysql_result($data, $i, 'datetime')).'</p>
+	<p class="date">'.$datetime.'</p>
 	</header>
 	<p>'.utf8_decode(mysql_result($data, $i, 'content')).'</p>
 	<footer>
-	<div class="floatleft">'.utf8_decode(mysql_result($data, $i, 'datetime')).' | <a href="#">0 kommentarer</a></div><div class="floatright">Tags: ';
+	<div class="floatleft">'.$datetime.' | <a href="#">0 kommentarer</a></div><div class="floatright">Tags: ';
 
 	$tags = array_map('trim', explode(',', utf8_decode(mysql_result($data, $i, 'tags'))));
 	for ($j = 0; $j < sizeof($tags); $j++)
@@ -32,21 +33,6 @@ function echoPost($data, $i)
 	</article>';
 }
 
-if (isset($_GET['module']))
-{
-	switch ($_GET['module'])
-	{
-		case 'register':
-			break;
-			
-		case 'password':
-			break;
-			
-		case 'newpost':
-			break;
-	}
-}
-
 if (isset($_GET['showid']))
 {
 	$data = mysql_query("SELECT * FROM posts WHERE id='".$_GET['showid']."';");
@@ -57,7 +43,7 @@ if (isset($_GET['showid']))
 }
 else
 {
-	$data = mysql_query('SELECT * FROM posts ORDER BY datetime');
+	$data = mysql_query("SELECT * FROM posts ORDER BY datetime");
 	$num_posts = mysql_numrows($data);
 	
 	/*$blog = simplexml_load_file('blog.xml');

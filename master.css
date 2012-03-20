@@ -154,20 +154,27 @@ a:hover {
 	color: #85CEFF;
 }
 
-#registerform {
+.form1 {
 	font: 14px Oswald, sans-serif;
 	margin-bottom: 10px;
 }
 
-#registerform p {
+.form1 p {
 	display: table;
 }
 
-#registerform input {
+.form1 input {
 	display: table-cell;
 }
 
-#registerform label {
+#result, #password_result {
+	text-align: left;
+	padding-left: 10px;
+	width: 150px;
+	color: #FF0000;
+}
+
+.form1 label {
 	display: table-cell;
 	width: 220px;
 	text-align: right;
@@ -179,7 +186,7 @@ a:hover {
 	padding-bottom: 30px;
 }
 
-#loginform p, #registerform p {
+#loginform p, .form1 p {
 	margin-bottom: 5px;
 }
 
@@ -188,14 +195,14 @@ a:hover {
 	margin-left: 10px;
 }
 
-#loginform input[type="text"], #loginform input[type="password"], #registerform input[type="text"], #registerform input[type="password"] {
+#loginform input[type="text"], #loginform input[type="password"], .form1 input[type="text"], .form1 input[type="password"] {
 	padding: 3px;
 	font: 12px Open Sans, sans-serif;
 	height:25px;
 	width: 160px;
 }
 
-#loginform input[type="submit"], #registerform input[type="submit"] {
+#loginform input[type="submit"], .form1 input[type="submit"] {
 	background: #000000;
 	font: 16px Oswald, sans-serif;
 	color: #FFFFFF;
@@ -206,11 +213,26 @@ a:hover {
 	width: 160px;
 }
 
-#loginform input[type="submit"]:hover, #registerform input[type="submit"]:hover {
+#loginform input[type="submit"]:hover, .form1 input[type="submit"]:hover {
 	color: #85CEFF;
 }
 
-#register, #password { display: none; }
+#register, #password, #newpost { display: none; }
+
+#usermenu {
+	margin: 10px 0px;
+}
+
+#usermenu a {
+	display: inline-block;
+	width: 150px;
+	padding: 5px;
+}
+
+#usermenu a:hover {
+	background: #85CEFF;
+	text-decoration: none;
+} 
 
 .headerwrap {
 	width: 960px;
