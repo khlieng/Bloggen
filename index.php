@@ -25,7 +25,7 @@
 		</header>
 		<nav id="menu">
 			<ul class="headerwrap">
-				<li><a href="#">Hjem</a></li>
+				<li><a href="index.php">Hjem</a></li>
 				<li><a href="#footer">Om meg</a></li>
 			</ul>
 		</nav>
@@ -42,8 +42,8 @@
 						</p>
 						<p>
 							<label for="email">E-post</label>
-							<input type="text" id="email" name="email" onKeyUp="checkEmail('registerform')" onChange="checkEmail('registerform')" />
-							<label id="result" class="email_result"></label>
+							<input type="text" id="email" name="email" onKeyUp="checkEmail('#registerform')" onChange="checkEmail('#registerform')" />
+							<label name="email_result" id="result"></label>
 						</p>
 				   		<p>
 				   			<label for="pass">Passord</label>
@@ -64,10 +64,10 @@
 					<header>
 						<h1>Glemt passord</h1>
 					</header>
-					<form class="form1" id="newpassform" name="newpassform" method="post" action="newpass.php">
+					<form class="form1" id="newpassform" name="newpassform">
 						<p>
 							<label for="email">E-post</label>
-							<input type="text" id="email" name="email" onChange="checkEmail('newpassform')" />
+							<input type="text" id="email" name="email" onKeyUp="checkEmail('#newpassform')" onChange="checkEmail('#newpassform')" />							
 						</p>
 			   			<p>
 			   				<label></label>
@@ -166,16 +166,12 @@
 
 	function checkEmail(form)
 	{
-		var email = document.forms[form].email.value;
-		var xmlHttp = new XMLHttpRequest();
-		xmlHttp.onreadystatechange = function() {
-			if (xmlHttp.readyState == 4)
-			{
-				document.getElementById('result').innerHTML = xmlHttp.responseText;	
-			}
-		}
-		xmlHttp.open('GET', 'checkemail.php?m=' + document.forms[form].email.value, true);
-		xmlHttp.send();			
+		var email = $(form).find("input[name=email]").val();
+
+		$.get('checkemail.php', { email: email }, 
+			function(result) {
+				$(form).find("label[name=email_result]").html(result);
+		});		 
 	}
 
 	function checkPasswords(form)
@@ -192,5 +188,11 @@
 			document.getElementById('password_result').innerHTML = null;
 		}	
 	}
+
+	$("#newpassform").submit(function(e) {
+		e.preventDefault();
+		$.post('newpass.php', $(this).serialize());
+		window.location = 'index.php';
+	});
 	</script>
 </html>
