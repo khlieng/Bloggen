@@ -38,21 +38,40 @@ a:hover {
 	padding-left: 20px;
 	font: 36px Oswald, sans-serif;
 	display: none;
+	color: #B8FF11;
+	text-shadow: 0px 0px 5px rgba(0,0,0,64)
 }
 
 #main_header {
-	//padding-left: 20px;
-	margin-bottom: -5px;
-	background: #85CEFF;
+	margin-bottom: -35px;
+	//background: #000000;
+	//background: #B8FF11;
+	//background: #85CEFF;height: 100px;
+	
+	border-bottom: 3px solid #B8FF11;
+	
+	background-image: linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
+	background-image: -o-linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
+	background-image: -ms-linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
+
+background: -moz-linear-gradient(
+		top,
+		rgb(69,69,69) 0%,
+		#000000);
+
+background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(1, rgb(69,69,69)),
+	color-stop(0, rgb(0,0,0))
+);
 }
 
 #menu {
 	padding: 5px 0px;
-	background: #000000;
 	color: #FFFFFF;
 	font: 16px Oswald, sans-serif;
-	//border-left: 10px solid #9EFF1E;
-	//border-right: 10px solid #9EFF1E;
 }
 
 #menu a {
@@ -60,7 +79,8 @@ a:hover {
 }
 
 #menu a:hover {
-	color: #85CEFF;
+	//color: #85CEFF;
+	color: #B8FF11;
 	text-decoration: none;
 }	
 
@@ -73,10 +93,13 @@ a:hover {
 #content {
 	float: left;
 	width: 660px;
-	padding-bottom: 30px;
+	padding-bottom: 20px;
 }
 
-#content article p { color: #202020; }
+#content article p { 
+	color: #202020;
+	margin-bottom: 10px;
+}
 
 #content article {
 	margin: 20px;
@@ -85,7 +108,7 @@ a:hover {
 }
 
 #content article header {
-	text-align: center;
+	//text-align: center;
 }
 
 #content article figure {
@@ -94,12 +117,13 @@ a:hover {
 }
 
 #content article h1 {
-	font: 28px Oswald, sans-serif;	
-	
+	font: 28px Oswald, sans-serif;
+	//margin-right: 84px;
 }
 
 #content article h1 a:hover {
-	color: #85CEFF;
+	//color: #85CEFF;
+	color: #B8FF11;
 	text-decoration: none;	
 }
 
@@ -116,6 +140,14 @@ a:hover {
 	border-top: 1px dashed #AAAAAA;
 }
 
+.form_article {
+	text-align: center;	
+}
+
+.form_article header h1 {
+	margin: 0px;
+}
+
 #pagenav {
 	margin: 30px 20px;
 	font: 15px Open Sans, sans-serif;
@@ -130,13 +162,8 @@ a:hover {
 	margin-right: 20px;
 }
 
-#archive p, #tags p {
-	margin-left: 10px;
-	margin-bottom: 5px;
-}
-
 #sidebar section {
-	margin-bottom: 20px;
+	margin-bottom: 25px;
 }
 
 #sidebar h1 {
@@ -146,12 +173,66 @@ a:hover {
 
 #footer {
 	clear: both;
-	border-top: 10px solid #85CEFF;
+	//border-top: 10px solid #85CEFF;
+	border-top: 3px solid #B8FF11;
 	font: 16px Oswald, sans-serif;
 	text-align: center;
 	padding: 10px;
-	background: #000000;
-	color: #85CEFF;
+	//background: #000000;
+	
+	background-image: linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
+	background-image: -o-linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
+	background-image: -ms-linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
+	background: -moz-linear-gradient(
+		top,
+		rgb(0,0,0) 0%,
+		rgb(69,69,69));
+
+background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(1, rgb(0,0,0)),
+	color-stop(0, rgb(69,69,69))
+);
+
+	//height: 200px;
+	
+	//color: #85CEFF;
+	color: #B8FF11;
+	
+	text-shadow: 0px 0px 5px rgba(0,0,0,64)
+}
+
+#footer p {
+	//margin: 20px;
+}
+
+#footer section {
+	float: left;
+	display: block;
+	width: 300px;
+	margin-left: 20px;
+	text-align: left;
+	//padding: 10px;
+}
+
+#footer h1 {
+	font: 28px Oswald, sans-serif;
+}
+
+#footer section ul {
+	list-style-type: none;
+}
+
+#footer section a {
+	font: 16px Oswald, sans-serif;
+	color: #AAAAAA;
+}
+
+#footer section a:hover {
+	color: #B8FF11;
+	text-decoration: none;
 }
 
 .form1 {
@@ -186,8 +267,22 @@ a:hover {
 	padding-bottom: 30px;
 }
 
+#newpostform label {
+	width: 110px;
+	vertical-align: top;
+}
+
+#newpostform input[type="text"] {	
+	width: 400px;
+}
+
+#newpostform textarea {
+	max-width: 400px;
+	height: 150px;
+}
+
 #loginform p, .form1 p {
-	margin-bottom: 5px;
+	margin-bottom: 5px !important;
 }
 
 #loginform a {
@@ -202,7 +297,7 @@ a:hover {
 	width: 160px;
 }
 
-#loginform input[type="submit"], .form1 input[type="submit"] {
+button, #loginform input[type="submit"], .form1 input[type="submit"] {
 	background: #000000;
 	font: 16px Oswald, sans-serif;
 	color: #FFFFFF;
@@ -211,10 +306,61 @@ a:hover {
 	margin-right: 90px;
 	float: right;
 	width: 160px;
+
+	color: #ffffff;
+	background: -moz-linear-gradient(
+		top,
+		#404040 0%,
+		#202020 50%,
+		#101010 50%,
+		#000000);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#404040),
+		color-stop(0.50, #202020),
+		color-stop(0.50, #101010),
+		to(#000000));
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border: 1px solid #000000;
+	-moz-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(255,255,255,0.6);
+	-webkit-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(255,255,255,0.6);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,1),
+		0px 1px 0px rgba(255,255,255,0.2);
 }
 
-#loginform input[type="submit"]:hover, .form1 input[type="submit"]:hover {
-	color: #85CEFF;
+#bottom_menu {
+	text-align: center;
+}
+
+#bottom_menu button {
+	float: none;
+	margin: 0px 10px;
+	
+	horizontal-align: center;
+}
+
+button:hover, #loginform input[type="submit"]:hover, .form1 input[type="submit"]:hover {
+	//color: #85CEFF;
+	color: #B8FF11;
+}
+
+button:active, #loginform input[type="submit"]:active, .form1 input[type="submit"]:active {
+	-moz-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 10px rgba(0,0,0,1);
+	-webkit-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 10px rgba(0,0,0,1);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,1),
+		0px 1px 0px rgba(255,255,255,0.2);
 }
 
 #register, #password, #newpost { display: none; }
@@ -223,16 +369,39 @@ a:hover {
 	margin: 10px 0px;
 }
 
-#usermenu a {
+#usermenu a, #tags a, #archive a {
 	display: inline-block;
 	width: 150px;
-	padding: 5px;
+	padding: 5px 10px;
+	padding-right: 0px;
 }
 
-#usermenu a:hover {
-	background: #85CEFF;
+#usermenu a:hover, #tags a:hover, #archive a:hover {
+	//background: #85CEFF;
+	background: #B8FF11;
 	text-decoration: none;
 } 
+
+.comment_bubble {
+	float: right;
+	background-image: url('images/bubble.png');
+	width: 64;
+	height: 64;
+}
+
+.comment_bubble a {
+	display: inline-block;
+	font: 16px Oswald, sans-serif;
+	color: #FFFFFF;
+	text-align: center;
+	padding: 14px 0px;
+	width: 60px;
+}
+
+.comment_bubble a:hover {
+	color: #B8FF11;
+	text-decoration:none;
+}
 
 .headerwrap {
 	width: 960px;

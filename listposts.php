@@ -6,12 +6,15 @@ function echoPost($data, $i)
 	echo '<article>';
 	if (isset($_SESSION['login']))
 	{
-		echo '<section class="postOptions">
+		/*echo '<section class="postOptions">
 			  <a href="deletepost.php?id='.mysql_result($data, $i, 'id').'">Slett</a><a href="#" onClick="alert(\'Ikke implementert :(\')">Endre</a>
-			  </section>';
+			  </section>';*/
 	}
 	$datetime = date('d.m.Y H:i', strtotime(mysql_result($data, $i, 'datetime')));
 	echo '<header>
+	<div class="comment_bubble">
+		<a href="#">325</a>
+	</div>
 	<h1>'.utf8_decode(mysql_result($data, $i, 'title')).'</h1>
 	<p class="date">'.$datetime.'</p>
 	</header>

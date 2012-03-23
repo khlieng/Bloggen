@@ -2,9 +2,10 @@
 <html lang="no">
 	<head>
 		<title>Project Herp</title>
-		<link rel="stylesheet" href="master.css" />
+		<link rel="stylesheet" href="master.css" />		
 		<?php session_start(); ?>		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<!--[if lte IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 		<script type="text/javascript">
 		window.onscroll = foo;
 
@@ -12,7 +13,7 @@
 		{
 			if (window.pageYOffset >= window.innerHeight)
 			{
-				alert('Bunnen er nådd!');
+				//alert('Bunnen er nådd!');
 			}
 		}
 		</script>
@@ -25,13 +26,15 @@
 		</header>
 		<nav id="menu">
 			<ul class="headerwrap">
-				<li><a href="index.php">Hjem</a></li>
-				<li><a href="#footer">Om meg</a></li>
+				<li><a href="index.php">HJEM</a></li>
+				<li><a href="#">OM MEG</a></li>
+				<li><a href="#">PROSJEKTLOGG</a></li>
+				<li><a href="#">KONTAKT</a></li>
 			</ul>
 		</nav>
 		<div id="wrap">
 			<section id="content">
-				<article id="register">
+				<article id="register" class="form_article">
 					<header>
 						<h1>Ny bruker</h1>
 					</header>
@@ -60,7 +63,7 @@
 						</p>
 					</form>
 				</article>
-				<article id="password">
+				<article id="password" class="form_article">
 					<header>
 						<h1>Glemt passord</h1>
 					</header>
@@ -75,19 +78,38 @@
 						</p>
 					</form>
 				</article>
-				<article id="newpost">
+				<article id="newpost" class="form_article">
 					<header>
 						<h1>Nytt innlegg</h1>
 					</header>
-					
+					<form class="form1" id="newpostform" name="newpostform" method="post" action="newpost.php">
+						<p>
+							<label for="title">Tittel</label>
+							<input type="text" id="title" name="title" />							
+						</p>
+						<p>
+							<label for="content">Innhold</label>
+							<textarea id="content" name="content"></textarea>
+						</p>
+						<p>
+							<label for="tags">Tags</label>
+							<input type="text" id="tags" name="tags" />
+						</p>
+			   			<p>
+			   				<label></label>
+							<input type="submit" value="OK" />
+						</p>
+					</form>
 				</article>
 				<?php include('listposts.php') ?>
-				<article>
+				<!-- <article>
 					<header>
+						<div class="comment_bubble">
+							<a href="#">0</a>
+						</div>
 						<h1><a href="#">Første innlegg</a></h1>
-						<p class="date">10.03.2012 16:13</p>
-					</header>
-							
+						<p class="date">10.03.2012 16:13</p>						
+					</header>												
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed hendrerit, diam eu convallis dignissim, turpis eros convallis eros, luctus malesuada felis est id libero.</p>
 					<figure><img src="http://www.bablotech.com/wp-content/uploads/2009/09/White_night.jpg" width="400" height="300"></figure>
 					<p>Integer dignissim urna non justo vulputate iaculis. Ut placerat massa sed neque bibendum viverra. Aliquam erat volutpat. Vivamus ligula odio, feugiat sed mollis vitae, ornare id neque. Ut ullamcorper dictum dui, in vehicula urna hendrerit vel. Nam orci diam, tempor eget malesuada a, feugiat vel magna. Aenean hendrerit, nulla at pharetra tristique, augue nulla condimentum magna, id feugiat purus nisl et tortor. Quisque dapibus est vel dolor iaculis hendrerit.</p>
@@ -97,6 +119,9 @@
 				</article>
 				<article>
 					<header>
+						<div class="comment_bubble">
+							<a href="#">4</a>
+						</div>
 						<h1>Andre innlegg</h1>
 						<p class="date">10.03.2012 16:39</p>
 					</header>
@@ -107,6 +132,9 @@
 				</article>
 				<article>
 					<header>
+						<div class="comment_bubble">
+							<a href="#">13</a>
+						</div>
 						<h1>Tredje innlegg</h1>
 						<p class="date">10.03.2012 16:40</p>
 					</header>
@@ -114,8 +142,12 @@
 					<footer>
 						<div class="floatleft">Postet 10.03.2012 16:40 | <a href="#">13 kommentarer</a></div><div class="floatright">Tags: <a href="#">Bil</a></div>
 					</footer>
-				</article>
-				<div id="pagenav"><a href="#" class="floatleft">&#60; Eldre innlegg</a><a href="#" class="floatright">Nyere innlegg &#62;</a></div>
+				</article> -->
+				<!-- <div id="pagenav"><a href="#" class="floatleft">&#60; Eldre innlegg</a><a href="#" class="floatright">Nyere innlegg &#62;</a></div> -->
+				<div id="bottom_menu">
+					<button id="button_show_more">Vis flere innlegg</button>
+					<button>Tilbake til toppen</button>
+				</div>
 			</section>
 			<aside id="sidebar">
 				<section id="info">
@@ -150,7 +182,44 @@
 			</aside>		
 		</div>
 		<footer id="footer">
-			<p>Ken-Håvard Lieng (c) 2012</p>
+			<div class="headerwrap">
+				<section id="footer_sitemap">
+					<header>
+						<h1>SITEMAP</h1>
+					</header>
+					<ul>
+						<li><a href="index.php">HJEM</a></li>
+						<li><a href="#">OM MEG</a></li>
+						<li><a href="#">PROSJEKTLOGG</a></li>
+						<li><a href="#">KONTAKT</a></li>
+					</ul>
+				</section>				
+				<section id="footer_archive">
+					<header>
+						<h1>ARKIV</h1>
+					</header>
+					<ul>
+						<li><a href="#">Mars 2012</a></li>
+						<li><a href="#">Februar 2012</a></li>
+						<li><a href="#">Januar 2012</a></li>
+						<li><a href="#">November 2011</a></li>
+					</ul>
+				</section>
+				<section id="footer_tags">
+					<header>
+						<h1>TAGS</h1>
+					</header>
+					<ul>
+						<li><a href="#">Tog</a></li>
+						<li><a href="#">Bil</a></li>
+						<li><a href="#">Fly</a></li>
+						<li><a href="#">Hund</a></li>
+						<li><a href="#">Kattemat</a></li>
+						<li><a href="#">Bonanza</a></li>
+					</ul>
+				</section>			
+				<p>Ken-Håvard Lieng (c) 2012</p>
+			</div>
 		</footer>
 	</body>
 	<script type="text/javascript">
