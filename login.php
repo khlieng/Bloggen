@@ -12,7 +12,7 @@ else
 	$username = $_POST['user'];
 	$password = $_POST['pass'];
 	
-	$result = mysql_query("SELECT * FROM users WHERE mail='".$username."' AND password=MD5('".$password."');");
+	$result = mysql_query("SELECT * FROM users WHERE mail='".$username."' AND password=MD5('".$password."')");
 	if (mysql_num_rows($result) > 0)
 	{
 		$_SESSION['login'] = true;

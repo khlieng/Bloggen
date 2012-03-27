@@ -2,25 +2,17 @@
 <html lang="no">
 	<head>
 		<title>Project Herp</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 		<link rel="stylesheet" href="master.css" />		
-		<?php session_start(); ?>		
+		<?php session_start(); ?>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 		<!--[if lte IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-		<script type="text/javascript">
-		window.onscroll = foo;
-
-		function foo()
-		{
-			if (window.pageYOffset >= window.innerHeight)
-			{
-				//alert('Bunnen er nådd!');
-			}
-		}
-		</script>
 	</head> 
-	<body id="b">
+	<body>
 		<header id="main_header">
 			<div class="headerwrap">
+				<div id="header_clock"></div>
 				<h1>KEN-HÅVARD'S BLOGG</h1>
 			</div>
 		</header>
@@ -41,21 +33,19 @@
 					<form class="form1" id="registerform" name="registerform" method="post" action="register.php">
 						<p>
 							<label for="name">Navn</label>
-							<input type="text" id="name" name="name" />
+							<input type="text" id="name" name="name" class="required" />
 						</p>
 						<p>
 							<label for="email">E-post</label>
-							<input type="text" id="email" name="email" onKeyUp="checkEmail('#registerform')" onChange="checkEmail('#registerform')" />
-							<label name="email_result" id="result"></label>
+							<input type="text" id="email" name="email" class="required email" />							
 						</p>
 				   		<p>
 				   			<label for="pass">Passord</label>
-				   			<input type="password" id="pass" name="pass" onKeyUp="checkPasswords('registerform')" onChange="checkPasswords('registerform')" />
-				   			<label id="password_result"></label>
+				   			<input type="password" id="pass" name="pass" class="required" />
 			   			</p>
 			   			<p>
 				   			<label for="pass">Bekreft passord</label>
-				   			<input type="password" id="pass2" name="pass2" onKeyUp="checkPasswords('registerform')" onChange="checkPasswords('registerform')" />
+				   			<input type="password" id="pass2" name="pass2" class="required" />
 			   			</p>
 			   			<p>
 			   				<label></label>
@@ -70,7 +60,7 @@
 					<form class="form1" id="newpassform" name="newpassform">
 						<p>
 							<label for="email">E-post</label>
-							<input type="text" id="email" name="email" onKeyUp="checkEmail('#newpassform')" onChange="checkEmail('#newpassform')" />							
+							<input type="text" id="email" name="email" class="required email" />							
 						</p>
 			   			<p>
 			   				<label></label>
@@ -101,51 +91,9 @@
 						</p>
 					</form>
 				</article>
-				<?php include('listposts.php') ?>
-				<!-- <article>
-					<header>
-						<div class="comment_bubble">
-							<a href="#">0</a>
-						</div>
-						<h1><a href="#">Første innlegg</a></h1>
-						<p class="date">10.03.2012 16:13</p>						
-					</header>												
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed hendrerit, diam eu convallis dignissim, turpis eros convallis eros, luctus malesuada felis est id libero.</p>
-					<figure><img src="http://www.bablotech.com/wp-content/uploads/2009/09/White_night.jpg" width="400" height="300"></figure>
-					<p>Integer dignissim urna non justo vulputate iaculis. Ut placerat massa sed neque bibendum viverra. Aliquam erat volutpat. Vivamus ligula odio, feugiat sed mollis vitae, ornare id neque. Ut ullamcorper dictum dui, in vehicula urna hendrerit vel. Nam orci diam, tempor eget malesuada a, feugiat vel magna. Aenean hendrerit, nulla at pharetra tristique, augue nulla condimentum magna, id feugiat purus nisl et tortor. Quisque dapibus est vel dolor iaculis hendrerit.</p>
-					<footer>
-						<div class="floatleft">Postet 10.03.2012 16:13 | <a href="#">0 kommentarer</a></div><div class="floatright">Tags: <a href="#">Bil</a> | <a href="#">Båt</a> | <a href="#">Bonanza</a></div>
-					</footer>
-				</article>
-				<article>
-					<header>
-						<div class="comment_bubble">
-							<a href="#">4</a>
-						</div>
-						<h1>Andre innlegg</h1>
-						<p class="date">10.03.2012 16:39</p>
-					</header>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed hendrerit, diam eu convallis dignissim, turpis eros convallis eros, luctus malesuada felis est id libero. Integer dignissim urna non justo vulputate iaculis. Ut placerat massa sed neque bibendum viverra. Aliquam erat volutpat. Vivamus ligula odio, feugiat sed mollis vitae, ornare id neque. Ut ullamcorper dictum dui, in vehicula urna hendrerit vel. Nam orci diam, tempor eget malesuada a, feugiat vel magna. Aenean hendrerit, nulla at pharetra tristique, augue nulla condimentum magna, id feugiat purus nisl et tortor. Quisque dapibus est vel dolor iaculis hendrerit.</p>
-					<footer>
-						<div class="floatleft">Postet 10.03.2012 16:39 | <a href="#">4 kommentarer</a></div><div class="floatright">Tags: <a href="#">Bil</a> | <a href="#">Bonanza</a></div>
-					</footer>
-				</article>
-				<article>
-					<header>
-						<div class="comment_bubble">
-							<a href="#">13</a>
-						</div>
-						<h1>Tredje innlegg</h1>
-						<p class="date">10.03.2012 16:40</p>
-					</header>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed hendrerit, diam eu convallis dignissim, turpis eros convallis eros, luctus malesuada felis est id libero. Integer dignissim urna non justo vulputate iaculis. Ut placerat massa sed neque bibendum viverra. Aliquam erat volutpat. Vivamus ligula odio, feugiat sed mollis vitae, ornare id neque. Ut ullamcorper dictum dui, in vehicula urna hendrerit vel. Nam orci diam, tempor eget malesuada a, feugiat vel magna. Aenean hendrerit, nulla at pharetra tristique, augue nulla condimentum magna, id feugiat purus nisl et tortor. Quisque dapibus est vel dolor iaculis hendrerit.</p>
-					<footer>
-						<div class="floatleft">Postet 10.03.2012 16:40 | <a href="#">13 kommentarer</a></div><div class="floatright">Tags: <a href="#">Bil</a></div>
-					</footer>
-				</article> -->
-				<!-- <div id="pagenav"><a href="#" class="floatleft">&#60; Eldre innlegg</a><a href="#" class="floatright">Nyere innlegg &#62;</a></div> -->
+				<!-- Blogginnlegg blir satt inn her -->
 				<div id="bottom_menu">
-					<button id="button_show_more">Vis flere innlegg</button>
+					<button id="button_show_more" onClick="getMorePosts()">Vis flere innlegg</button>
 					<button>Tilbake til toppen</button>
 				</div>
 			</section>
@@ -185,7 +133,7 @@
 			<div class="headerwrap">
 				<section id="footer_sitemap">
 					<header>
-						<h1>SITEMAP</h1>
+						<h1>MENY</h1>
 					</header>
 					<ul>
 						<li><a href="index.php">HJEM</a></li>
@@ -223,9 +171,64 @@
 		</footer>
 	</body>
 	<script type="text/javascript">
-	$(document).ready(function() {
-		$("#main_header h1").fadeIn("slow");
+	var start = 0;
+	var postsPerGet = 5;
+	
+	$.extend($.validator.messages, { 
+		required: "Dette feltet må fylles ut.", 
+		email: "Må være en gyldig e-postadresse.",
+		equalTo: "Passordene må være like."
 	});
+	
+	$(document).ready(function() {
+		$("#registerform").validate({
+			highlight: function(element, errorClass) {},
+			rules: {
+				email: {
+					remote: "checkemail.php"
+				},
+				pass2: {
+					equalTo: "#pass"
+				}
+			},
+			messages: {
+				email: {
+					remote: "Mailen er allerede i bruk."
+				}
+			}			
+		});
+
+		$("#newpassform").validate({
+			highlight: function(element, errorClass) {},
+			submitHandler: function() {
+				$.post('newpass.php', $("#newpassform").serialize());
+				$("#password").slideUp();
+				setTimeout('alert("Nytt passord sendt!")', 400);
+			}
+		});
+		
+		$("#main_header h1").fadeIn("slow");
+		getMorePosts();
+		tick();
+	});
+
+	function getMorePosts()
+	{
+		$.get('listposts.php', { from: start, n: postsPerGet },
+			function(result) {
+				$('#bottom_menu').before(result);
+		});
+		start += postsPerGet;		
+	}
+
+	function showId(id)
+	{
+		$('.blogpost').remove();
+		$.get('listposts.php', { showid: id },
+			function(result) {				
+				$('#bottom_menu').before(result);
+		});
+	}
 
 	function slideToggle(element)
 	{
@@ -258,10 +261,23 @@
 		}	
 	}
 
-	$("#newpassform").submit(function(e) {
-		e.preventDefault();
-		$.post('newpass.php', $(this).serialize());
-		window.location = 'index.php';
-	});
+	function tick()
+	{
+		var now = new Date();
+
+		document.getElementById('header_clock').innerHTML =
+			pad(now.getHours()) + ':' +
+			pad(now.getMinutes()) + ':' +
+			pad(now.getSeconds());
+
+		setTimeout('tick()', 1000);
+	}
+
+	function pad(n)
+	{
+		if (n < 10)
+			return '0' + n;
+		return n;
+	}
 	</script>
 </html>

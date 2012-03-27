@@ -1,5 +1,5 @@
 <?php
-require_once("Mail.php");
+include("mailwrapper.php");
 include("dbconn.php");
 
 function randomPassword($length)
@@ -15,35 +15,13 @@ function randomPassword($length)
 
 $newpassword = randomPassword(10);
 
-// Skyv nytt passord til DB
+$mail = $_POST['email'];
+$result = mysql_query("SELECT id FROM users WHERE mail='".$mail."'");
+$id = mysql_result($result, 0, "id");
+mysql_query("UPDATE users SET password=MD5('".$newpassword."') WHERE id='".$id."'");
 
-$from = "<kenh.web@gmail.com>";
-$to = "<".$_POST['email'].">";
-$subject = "Nytt passord";
-$body = "Ditt nye passord er: ".$newpassword;
+sendMail($_POST['email'], "Nytt passord", "Ditt nye passord er: ".$newpassword);
 
-$host = "ssl://smtp.gmail.com";
-$port = "465";
-$username = "kenh.web@gmail.com";
-$password = "R2weWXNnpRjacTdq";
-
-$headers = array ('From' => $from, 
-	'To' => $to, 
-	'Subject' => $subject);
-$smtp = Mail::factory('smtp', 
-	array ('host' => $host,
-		'port' => $port,
-		'auth' => true,
-		'username' => $username,
-		'password' => $password));
-
-$mail = $smtp->send($to, $headers, $body);
-
-if (PEAR::isError($mail)) 
-{
-}
-else 
-{
-}
+mysql_close();
 header("location:index.php");
 ?>

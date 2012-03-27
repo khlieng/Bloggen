@@ -90,6 +90,16 @@ background-image: -webkit-gradient(
 	margin-left: 22px
 }
 
+#header_clock {
+	font: 36px Oswald, sans-serif;
+	display: inline-block;
+	width: 270px;
+	float: right;
+	color: #B8FF11;
+	text-shadow: 0px 0px 5px rgba(0,0,0,64);
+	margin-top: 10px;
+}	
+
 #content {
 	float: left;
 	width: 660px;
@@ -121,6 +131,10 @@ background-image: -webkit-gradient(
 	//margin-right: 84px;
 }
 
+#content article h2 {
+	font: 20px Oswald, sans-serif;
+}
+
 #content article h1 a:hover {
 	//color: #85CEFF;
 	color: #B8FF11;
@@ -138,6 +152,20 @@ background-image: -webkit-gradient(
 	margin-bottom: 10px;
 	font-size: 11px;
 	border-top: 1px dashed #AAAAAA;
+}
+
+.comment {
+	clear: both;
+}
+
+.comment_image {
+	float: left;
+	width: 60px;
+	background: #B8FF11;
+}
+
+.comment_content {
+	float: left;
 }
 
 .form_article {
@@ -177,7 +205,7 @@ background-image: -webkit-gradient(
 	border-top: 3px solid #B8FF11;
 	font: 16px Oswald, sans-serif;
 	text-align: center;
-	padding: 10px;
+	//padding: 10px;
 	//background: #000000;
 	
 	background-image: linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
@@ -205,16 +233,17 @@ background-image: -webkit-gradient(
 }
 
 #footer p {
-	//margin: 20px;
+	clear: both;
+	padding: 20px;
 }
 
 #footer section {
 	float: left;
 	display: block;
 	width: 300px;
+	margin-top: 10px;
 	margin-left: 20px;
 	text-align: left;
-	//padding: 10px;
 }
 
 #footer h1 {
@@ -227,7 +256,7 @@ background-image: -webkit-gradient(
 
 #footer section a {
 	font: 16px Oswald, sans-serif;
-	color: #AAAAAA;
+	color: #CCCCCC;
 }
 
 #footer section a:hover {
@@ -236,7 +265,7 @@ background-image: -webkit-gradient(
 }
 
 .form1 {
-	font: 14px Oswald, sans-serif;
+	font: 14px Open Sans, sans-serif;
 	margin-bottom: 10px;
 }
 
@@ -246,13 +275,6 @@ background-image: -webkit-gradient(
 
 .form1 input {
 	display: table-cell;
-}
-
-#result, #password_result {
-	text-align: left;
-	padding-left: 10px;
-	width: 150px;
-	color: #FF0000;
 }
 
 .form1 label {
@@ -411,6 +433,14 @@ button:active, #loginform input[type="submit"]:active, .form1 input[type="submit
 .date {
 	font-size: 12px;
 	color: #303030;
+}
+
+.error {
+	color: #FF0000;
+	text-align: left !important;
+	font-size: 10px;
+	padding-left: 10px;
+	padding-right: 0px !important;
 }
 
 .floatleft { float: left; }
