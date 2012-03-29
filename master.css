@@ -1,5 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Oswald:400,700);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
 * {
 	padding: 0px;
 	margin: 0px;
@@ -44,28 +45,15 @@ a:hover {
 
 #main_header {
 	margin-bottom: -35px;
-	//background: #000000;
-	//background: #B8FF11;
-	//background: #85CEFF;height: 100px;
+	height: 100px;
 	
 	border-bottom: 3px solid #B8FF11;
 	
 	background-image: linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
 	background-image: -o-linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
 	background-image: -ms-linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
-
-background: -moz-linear-gradient(
-		top,
-		rgb(69,69,69) 0%,
-		#000000);
-
-background-image: -webkit-gradient(
-	linear,
-	left bottom,
-	left top,
-	color-stop(1, rgb(69,69,69)),
-	color-stop(0, rgb(0,0,0))
-);
+	background: -moz-linear-gradient(top, rgb(69,69,69) 0%, #000000);
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(1, rgb(69,69,69)), color-stop(0, rgb(0,0,0)));
 }
 
 #menu {
@@ -79,7 +67,6 @@ background-image: -webkit-gradient(
 }
 
 #menu a:hover {
-	//color: #85CEFF;
 	color: #B8FF11;
 	text-decoration: none;
 }	
@@ -128,7 +115,6 @@ background-image: -webkit-gradient(
 
 #content article h1 {
 	font: 28px Oswald, sans-serif;
-	//margin-right: 84px;
 }
 
 #content article h2 {
@@ -136,7 +122,6 @@ background-image: -webkit-gradient(
 }
 
 #content article h1 a:hover {
-	//color: #85CEFF;
 	color: #B8FF11;
 	text-decoration: none;	
 }
@@ -201,12 +186,9 @@ background-image: -webkit-gradient(
 
 #footer {
 	clear: both;
-	//border-top: 10px solid #85CEFF;
 	border-top: 3px solid #B8FF11;
 	font: 16px Oswald, sans-serif;
 	text-align: center;
-	//padding: 10px;
-	//background: #000000;
 	
 	background-image: linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
 	background-image: -o-linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
@@ -216,19 +198,15 @@ background-image: -webkit-gradient(
 		rgb(0,0,0) 0%,
 		rgb(69,69,69));
 
-background-image: -webkit-gradient(
-	linear,
-	left bottom,
-	left top,
-	color-stop(1, rgb(0,0,0)),
-	color-stop(0, rgb(69,69,69))
-);
-
-	//height: 200px;
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(1, rgb(0,0,0)),
+		color-stop(0, rgb(69,69,69))
+	);
 	
-	//color: #85CEFF;
-	color: #B8FF11;
-	
+	color: #B8FF11;	
 	text-shadow: 0px 0px 5px rgba(0,0,0,64)
 }
 
@@ -295,11 +273,12 @@ background-image: -webkit-gradient(
 }
 
 #newpostform input[type="text"] {	
-	width: 400px;
+	width: 392px;
 }
 
 #newpostform textarea {
-	max-width: 400px;
+	padding: 3px;
+	max-width: 394px;
 	height: 150px;
 }
 
@@ -315,8 +294,7 @@ background-image: -webkit-gradient(
 #loginform input[type="text"], #loginform input[type="password"], .form1 input[type="text"], .form1 input[type="password"] {
 	padding: 3px;
 	font: 12px Open Sans, sans-serif;
-	height:25px;
-	width: 160px;
+	width: 150px;
 }
 
 button, #loginform input[type="submit"], .form1 input[type="submit"] {
@@ -358,18 +336,17 @@ button, #loginform input[type="submit"], .form1 input[type="submit"] {
 }
 
 #bottom_menu {
+	display: none;
 	text-align: center;
 }
 
 #bottom_menu button {
 	float: none;
-	margin: 0px 10px;
-	
+	margin: 0px 10px;	
 	horizontal-align: center;
 }
 
 button:hover, #loginform input[type="submit"]:hover, .form1 input[type="submit"]:hover {
-	//color: #85CEFF;
 	color: #B8FF11;
 }
 
@@ -385,10 +362,20 @@ button:active, #loginform input[type="submit"]:active, .form1 input[type="submit
 		0px 1px 0px rgba(255,255,255,0.2);
 }
 
-#register, #password, #newpost { display: none; }
+#register, #password, #newpost { 
+	display: none; 
+}
+
+#userinfo p {
+	margin-bottom: 10px;
+}
 
 #usermenu {
 	margin: 10px 0px;
+}
+
+#usermenu p {
+	margin-bottom: 0px;
 }
 
 #usermenu a, #tags a, #archive a {
@@ -399,10 +386,17 @@ button:active, #loginform input[type="submit"]:active, .form1 input[type="submit
 }
 
 #usermenu a:hover, #tags a:hover, #archive a:hover {
-	//background: #85CEFF;
 	background: #B8FF11;
 	text-decoration: none;
-} 
+}
+
+#loading {
+	padding: 40px;
+	display: none;
+	background-image: url('images/loading.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+}
 
 .comment_bubble {
 	float: right;
@@ -416,7 +410,7 @@ button:active, #loginform input[type="submit"]:active, .form1 input[type="submit
 	font: 16px Oswald, sans-serif;
 	color: #FFFFFF;
 	text-align: center;
-	padding: 14px 0px;
+	padding: 14px 0px 17px;
 	width: 60px;
 }
 

@@ -16,6 +16,11 @@ else
 	if (mysql_num_rows($result) > 0)
 	{
 		$_SESSION['login'] = true;
+		$_SESSION['userid'] = mysql_result($result, 0, 'id');
+		if (mysql_result($result, 0, 'status') == 'inactive')
+		{
+			$_SESSION['inactive'] = true;
+		}
 	}	
 	mysql_close();
 }

@@ -23,3 +23,4 @@ function sendMail($to, $subject, $body)
 	
 	$smtp->send($address_to, $headers, $body);
 }
+?>

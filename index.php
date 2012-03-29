@@ -1,12 +1,13 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html lang="no">
 	<head>
-		<title>Project Herp</title>
+		<title>Ken-Håvard's Blogg</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 		<link rel="stylesheet" href="master.css" />		
 		<?php session_start(); ?>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+		<script src="jquery.scrollTo-1.4.2-min.js"></script>
 		<!--[if lte IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	</head> 
 	<body>
@@ -18,10 +19,10 @@
 		</header>
 		<nav id="menu">
 			<ul class="headerwrap">
-				<li><a href="index.php">HJEM</a></li>
-				<li><a href="#">OM MEG</a></li>
-				<li><a href="#">PROSJEKTLOGG</a></li>
-				<li><a href="#">KONTAKT</a></li>
+				<li><a href="javascript:void(0)" onClick="show('#c1')">HJEM</a></li>
+				<li><a href="javascript:void(0)" onClick="show('#c2')">OM MEG</a></li>
+				<li><a href="javascript:void(0)" onClick="show('#c3')">PROSJEKTLOGG</a></li>
+				<li><a href="javascript:void(0)" onClick="show('#c4')">KONTAKT</a></li>
 			</ul>
 		</nav>
 		<div id="wrap">
@@ -30,7 +31,7 @@
 					<header>
 						<h1>Ny bruker</h1>
 					</header>
-					<form class="form1" id="registerform" name="registerform" method="post" action="register.php">
+					<form class="form1" id="registerform" name="registerform">
 						<p>
 							<label for="name">Navn</label>
 							<input type="text" id="name" name="name" class="required" />
@@ -91,10 +92,37 @@
 						</p>
 					</form>
 				</article>
-				<!-- Blogginnlegg blir satt inn her -->
-				<div id="bottom_menu">
-					<button id="button_show_more" onClick="getMorePosts()">Vis flere innlegg</button>
-					<button>Tilbake til toppen</button>
+				<div id="c1">
+					<!-- Blogginnlegg blir satt inn her -->
+					<div id="loading"></div>
+					<div id="bottom_menu">
+						<button id="button_show_more" onClick="getMorePosts()">Vis flere innlegg</button>
+						<button onClick="$.scrollTo('#main_header', 1000)">Tilbake til toppen</button>
+					</div>
+				</div>
+				<div id="c2" style="display: none;">
+					<article>
+						<header>
+							<h1>Om meg</h1>
+						</header>
+						<p>TEKST</p>
+					</article>
+				</div>
+				<div id="c3" style="display: none;">
+					<article>
+						<header>
+							<h1>Prosjektlogg</h1>
+						</header>
+						<p>TEKST</p>
+					</article>
+				</div>
+				<div id="c4" style="display: none;">
+					<article>
+						<header>
+							<h1>Kontakt</h1>
+						</header>
+						<p>TEKST</p>
+					</article>
 				</div>
 			</section>
 			<aside id="sidebar">
@@ -183,6 +211,10 @@
 	$(document).ready(function() {
 		$("#registerform").validate({
 			highlight: function(element, errorClass) {},
+			submitHandler: function() {
+				$.post('register.php', $("#registerform").serialize());
+				document.location = 'index.php';
+			},
 			rules: {
 				email: {
 					remote: "checkemail.php"
@@ -202,21 +234,47 @@
 			highlight: function(element, errorClass) {},
 			submitHandler: function() {
 				$.post('newpass.php', $("#newpassform").serialize());
-				$("#password").slideUp();
-				setTimeout('alert("Nytt passord sendt!")', 400);
+				$("#password").slideUp(function() {
+					alert('Nytt passord sendt!');
+					document.forms['newpassform'].reset();
+				});
 			}
 		});
 		
 		$("#main_header h1").fadeIn("slow");
-		getMorePosts();
+		<?php 
+		if (isset($_GET['showid']))
+		{
+			echo 'showId('.$_GET['showid'].');';
+		}
+		else 
+		{
+			echo 'getMorePosts();';
+		}		
+		?>
 		tick();
 	});
 
+	var current = "#c1";
+	
+	function show(element)
+	{
+		$(current).fadeOut(function() {
+			$(element).fadeIn();
+			current = element;
+		});	
+	}
+
 	function getMorePosts()
 	{
+		$('#loading').insertBefore('#bottom_menu');
+		$('#bottom_menu').hide();
+		$('#loading').fadeIn();
 		$.get('listposts.php', { from: start, n: postsPerGet },
 			function(result) {
-				$('#bottom_menu').before(result);
+				$('#bottom_menu').before(result);				
+				$('#loading').hide();
+				$('#bottom_menu').show();
 		});
 		start += postsPerGet;		
 	}
@@ -228,37 +286,6 @@
 			function(result) {				
 				$('#bottom_menu').before(result);
 		});
-	}
-
-	function slideToggle(element)
-	{
-		$(element + ":visible").slideUp();
-		$(element + ":hidden").slideDown();		
-	}
-
-	function checkEmail(form)
-	{
-		var email = $(form).find("input[name=email]").val();
-
-		$.get('checkemail.php', { email: email }, 
-			function(result) {
-				$(form).find("label[name=email_result]").html(result);
-		});		 
-	}
-
-	function checkPasswords(form)
-	{
-		var p1 = document.forms[form].pass.value;
-		var p2 = document.forms[form].pass2.value;
-
-		if (p1 != p2)
-		{
-			document.getElementById('password_result').innerHTML = 'Passordene er ikke like.'
-		}
-		else
-		{
-			document.getElementById('password_result').innerHTML = null;
-		}	
 	}
 
 	function tick()
