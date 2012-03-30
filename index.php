@@ -1,10 +1,10 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="no">
 	<head>
 		<title>Ken-Håvard's Blogg</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		<link rel="stylesheet" href="master.css" />		
-		<?php session_start(); ?>
+		<link rel="stylesheet" href="master.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 		<script src="jquery.scrollTo-1.4.2-min.js"></script>
@@ -19,10 +19,10 @@
 		</header>
 		<nav id="menu">
 			<ul class="headerwrap">
-				<li><a href="javascript:void(0)" onClick="show('#c1')">HJEM</a></li>
-				<li><a href="javascript:void(0)" onClick="show('#c2')">OM MEG</a></li>
-				<li><a href="javascript:void(0)" onClick="show('#c3')">PROSJEKTLOGG</a></li>
-				<li><a href="javascript:void(0)" onClick="show('#c4')">KONTAKT</a></li>
+				<li><a href="#hjem">HJEM</a></li>
+				<li><a href="#om-meg">OM MEG</a></li>
+				<li><a href="#logg">PROSJEKTLOGG</a></li>
+				<li><a href="#kontakt">KONTAKT</a></li>
 			</ul>
 		</nav>
 		<div id="wrap">
@@ -92,15 +92,15 @@
 						</p>
 					</form>
 				</article>
-				<div id="c1">
+				<div id="hjem">
 					<!-- Blogginnlegg blir satt inn her -->
 					<div id="loading"></div>
 					<div id="bottom_menu">
 						<button id="button_show_more" onClick="getMorePosts()">Vis flere innlegg</button>
 						<button onClick="$.scrollTo('#main_header', 1000)">Tilbake til toppen</button>
 					</div>
-				</div>
-				<div id="c2" style="display: none;">
+				</div>				
+				<div id="om-meg" style="display: none;">
 					<article>
 						<header>
 							<h1>Om meg</h1>
@@ -108,7 +108,7 @@
 						<p>TEKST</p>
 					</article>
 				</div>
-				<div id="c3" style="display: none;">
+				<div id="logg" style="display: none;">
 					<article>
 						<header>
 							<h1>Prosjektlogg</h1>
@@ -116,7 +116,7 @@
 						<p>TEKST</p>
 					</article>
 				</div>
-				<div id="c4" style="display: none;">
+				<div id="kontakt" style="display: none;">
 					<article>
 						<header>
 							<h1>Kontakt</h1>
@@ -124,6 +124,7 @@
 						<p>TEKST</p>
 					</article>
 				</div>
+				<div id="showid"></div>
 			</section>
 			<aside id="sidebar">
 				<section id="info">
@@ -201,6 +202,7 @@
 	<script type="text/javascript">
 	var start = 0;
 	var postsPerGet = 5;
+	var currentPage = "#hjem";
 	
 	$.extend($.validator.messages, { 
 		required: "Dette feltet må fylles ut.", 
@@ -240,29 +242,36 @@
 				});
 			}
 		});
+
+		window.onhashchange = function() {
+			if (window.location.hash == '')
+			{
+				swapPage('#hjem');
+			}
+			else if (window.location.hash.indexOf('showid') != -1)
+			{
+				showId(window.location.hash.split('-')[1]);
+			}
+			else
+			{
+				swapPage(window.location.hash);
+			}
+		};
 		
 		$("#main_header h1").fadeIn("slow");
-		<?php 
-		if (isset($_GET['showid']))
-		{
-			echo 'showId('.$_GET['showid'].');';
-		}
-		else 
-		{
-			echo 'getMorePosts();';
-		}		
-		?>
+		getMorePosts();
 		tick();
 	});
-
-	var current = "#c1";
 	
-	function show(element)
+	function swapPage(page)
 	{
-		$(current).fadeOut(function() {
-			$(element).fadeIn();
-			current = element;
-		});	
+		/*$(currentPage).fadeOut("fast", function() {
+			$(page).fadeIn("fast");
+			currentPage = page;
+		});	*/
+		$(currentPage).hide();
+		$(page).show();
+		currentPage = page;
 	}
 
 	function getMorePosts()
@@ -281,11 +290,12 @@
 
 	function showId(id)
 	{
-		$('.blogpost').remove();
+		$('#showid').html('');
+		swapPage('#showid');
 		$.get('listposts.php', { showid: id },
-			function(result) {				
-				$('#bottom_menu').before(result);
-		});
+			function(result) {		
+				$('#showid').html(result);
+		});		
 	}
 
 	function tick()

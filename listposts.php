@@ -13,7 +13,7 @@ function echoPost($data, $i)
 	$datetime = date('d.m.Y H:i', strtotime(mysql_result($data, $i, 'datetime')));
 	echo '<header>
 	<div class="comment_bubble">
-		<a href="index.php?showid='.mysql_result($data, $i, 'id').'">325</a>
+		<a href="#showid-'.mysql_result($data, $i, 'id').'">325</a>
 	</div>
 	<h1><a href="javascript:void(0)" onClick="showId('.mysql_result($data, $i, 'id').')">'.mysql_result($data, $i, 'title').'</a></h1>
 	<p class="date">'.$datetime.'</p>
