@@ -15,23 +15,24 @@ function echoPost($data, $i)
 	<div class="comment_bubble">
 		<a href="#showid-'.mysql_result($data, $i, 'id').'">325</a>
 	</div>
-	<h1><a href="javascript:void(0)" onClick="showId('.mysql_result($data, $i, 'id').')">'.mysql_result($data, $i, 'title').'</a></h1>
+	<h1><a href="#showid-'.mysql_result($data, $i, 'id').'">'.mysql_result($data, $i, 'title').'</a></h1>
 	<p class="date">'.$datetime.'</p>
 	</header>
 	<p>'.mysql_result($data, $i, 'content').'</p>
 	<footer>
-	<div class="floatleft">'.$datetime.' | <a href="javascript:void(0)" onClick="showId('.mysql_result($data, $i, 'id').')">0 kommentarer</a></div><div class="floatright">Tags: ';
-
+	'; //div class="floatleft">'.$datetime.' | <a href="#showid-'.mysql_result($data, $i, 'id').'">0 kommentarer</a></div><div class="floatright">Tags: ';
+	echo '<ul class="tags">';
 	$tags = array_map('trim', explode(',', mysql_result($data, $i, 'tags')));
 	for ($j = 0; $j < sizeof($tags); $j++)
 	{
-		echo '<a href="#">'.$tags[$j].'</a>';
+		//echo '<a href="#">'.$tags[$j].'</a>';
+		echo '<li><a href="#">'.$tags[$j].'</a></li>';
 		if ($j < sizeof($tags) - 1)
 		{
-			echo ' | ';
+			//echo ' | ';
 		}
 	}	
-	echo '</div>
+	echo '</ul>
 	</footer>
 	</article>';
 }
@@ -57,7 +58,7 @@ if (isset($_GET['showid']))
 			<div class="comment_content">
 				<h2>'.$name.'</h2>
 				<p class="date">25.03.2012 18:55</p>
-				<p>For et flott innlegg asså :o</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec laoreet massa in velit congue in tempus sem ultricies.</p>
 			</div>
 		</article>
 		<article class="comment">
@@ -67,8 +68,21 @@ if (isset($_GET['showid']))
 			<div class="comment_content">
 				<h2>'.$name.'</h2>
 				<p class="date">25.03.2012 18:59</p>
-				<p>Joda</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec laoreet massa in velit congue in tempus sem ultricies. Nullam felis mauris, eleifend mattis consectetur eget, pulvinar vel odio. Nunc vulputate condimentum accumsan. Quisque in purus vel neque eleifend sodales. Morbi quis gravida lorem.</p>
 			</div>
+		</article>
+		<article id="new_comment">
+			<header>
+				<h1>Legg igjen en kommentar</h1>
+			</header>
+			<form id="commentform" name="commentform">
+				<p>
+					<textarea id="name" name="name"></textarea>
+				</p>
+	   			<p>
+					<input type="submit" value="OK" />
+				</p>
+			</form>					
 		</article>';
 	}
 }
