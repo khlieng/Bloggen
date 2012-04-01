@@ -11,7 +11,7 @@ header, section, footer, aside, nav, article, figure, figcaption, hgroup {
 }
 
 a {
-	color: #000000;
+	color: #000;
 	text-decoration: none;
 }
 
@@ -52,18 +52,18 @@ a:hover {
 	background-image: linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
 	background-image: -o-linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
 	background-image: -ms-linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
-	background: -moz-linear-gradient(top, rgb(69,69,69) 0%, #000000);
+	background: -moz-linear-gradient(top, rgb(69,69,69) 0%, #000);
 	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(1, rgb(69,69,69)), color-stop(0, rgb(0,0,0)));
 }
 
 #menu {
 	padding: 5px 0px;
-	color: #FFFFFF;
+	color: #FFF;
 	font: 16px Oswald, sans-serif;
 }
 
 #menu a {
-	color: #FFFFFF;
+	color: #FFF;
 }
 
 #menu a:hover {
@@ -102,7 +102,7 @@ a:hover {
 	margin: 20px;
 	margin-bottom: 40px;
 	font: 15px Open Sans, sans-serif;
-	//border-bottom: 1px dashed #AAAAAA;
+	//border-bottom: 1px dashed #AAA;
 }
 
 #content article header {
@@ -142,6 +142,29 @@ a:hover {
 	font-size: 11px;
 	//border-top: 1px dashed #AAA;
 	border-bottom: 1px dashed #AAA;
+}
+
+.post_options {
+	float: right;
+	margin-right: 5px;
+	margin-top: 10px;
+}
+
+.post_options a {
+	margin-right: 5px;
+	color: #FFF;	
+	font-size: 12px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	background: #000;
+	padding: 4px 8px;
+}
+
+.post_options a:hover {
+	color: #000;
+	background: #B8FF11;
+	text-decoration: none;
 }
 
 .comment {
@@ -249,7 +272,7 @@ a:hover {
 
 #footer section a {
 	font: 16px Oswald, sans-serif;
-	color: #CCCCCC;
+	color: #CCC;
 }
 
 #footer section a:hover {
@@ -279,7 +302,7 @@ a:hover {
 
 #loginform {
 	font: 14px Oswald, sans-serif;
-	padding-bottom: 30px;
+	//padding-bottom: 30px;
 }
 
 #newpostform label {
@@ -313,31 +336,31 @@ a:hover {
 }
 
 button, #loginform input[type="submit"], .form1 input[type="submit"], #commentform input[type="submit"] {
-	background: #000000;
+	background: #000;
 	font: 16px Oswald, sans-serif;
-	color: #FFFFFF;
+	color: #FFF;
 	border: none;
 	padding: 5px;
-	margin-right: 90px;
+	//margin-right: 90px;
 	width: 160px;
 
-	color: #ffffff;
+	color: #FFF;
 	background: -moz-linear-gradient(
 		top,
 		#404040 0%,
 		#202020 50%,
 		#101010 50%,
-		#000000);
+		#000);
 	background: -webkit-gradient(
 		linear, left top, left bottom, 
 		from(#404040),
 		color-stop(0.50, #202020),
 		color-stop(0.50, #101010),
-		to(#000000));
+		to(#000));
 	border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
-	border: 1px solid #000000;
+	border: 1px solid #000;
 	-moz-box-shadow:
 		0px 1px 3px rgba(000,000,000,0.5),
 		inset 0px 0px 1px rgba(255,255,255,0.6);
@@ -422,7 +445,7 @@ button:active, #loginform input[type="submit"]:active, .form1 input[type="submit
 .comment_bubble a {
 	display: inline-block;
 	font: 16px Oswald, sans-serif;
-	color: #FFFFFF;
+	color: #FFF;
 	text-align: center;
 	line-height: 55px;
 	padding-bottom: 2px;
@@ -430,7 +453,7 @@ button:active, #loginform input[type="submit"]:active, .form1 input[type="submit
 }
 
 .comment_bubble a:hover {
-	color: #000000;
+	color: #000;
 	text-decoration:none;
 	background-image: url('images/bubble2_hover.png');
 }
@@ -453,7 +476,7 @@ button:active, #loginform input[type="submit"]:active, .form1 input[type="submit
 	padding-left: 6px;
 	padding-right: 12px;
 	margin-top: -2px;
-	color: #FFFFFF;
+	color: #FFF;
 	background: #000;
 	text-decoration: none;
 	-webkit-border-bottom-right-radius: 2px;
@@ -498,6 +521,60 @@ button:active, #loginform input[type="submit"]:active, .form1 input[type="submit
 	font-size: 10px;
 	padding-left: 10px;
 	padding-right: 0px !important;
+}
+
+#dialog_container {
+	margin: 0px auto;
+	text-align: center;
+	width: 400px;
+}
+
+#confirm_dialog {
+	position: absolute;
+	top: 33%;
+	padding: 10px;
+	background: #141414;
+	display: none;
+	z-index: 2;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	text-align: center;
+	font: 28px Oswald, sans-serif;
+	color: #FFF;
+	width: 400px;
+}
+
+#overlay {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.8);
+	z-index: 1;
+	display: none;
+}
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
 }
 
 .floatleft { float: left; }

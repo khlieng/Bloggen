@@ -6,11 +6,19 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 		<link rel="stylesheet" href="master.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script> -->
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>		
 		<script src="jquery.scrollTo-1.4.2-min.js"></script>
 		<!--[if lte IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	</head> 
 	<body>
+		<div id="dialog_container">
+			<div id="confirm_dialog">
+				<p>Er du sikker?</p>
+				<button id="confirm_button_yes">Ja</button>
+				<button id="confirm_button_no">Nei</button>
+			</div>
+		</div>
 		<header id="main_header">
 			<div class="headerwrap">
 				<div id="header_clock"></div>
@@ -113,28 +121,28 @@
 						<header>
 							<h1>Prosjektlogg</h1>
 						</header>
-						<p><p><h3>10.03.2012 – 15.03.2012</h3> (ca. 0,5-2 timer per dag)</p>
+						<p><p><h2>10.03.2012 – 15.03.2012</h2> (ca. 0,5-2 timer per dag)</p>
 Glemte å gjøre daglig loggføring i starten av prosjektet, før oppgaven ble lagt ut jobbet jeg med et nytt design(utseende). Jeg jobbet deretter med å flytte eksisterende funksjonalitet over på database og begynte på registrering av brukere. Det finnes nå to brukergrupper, en hardkodet adminbruker og registrerte brukere. Ingen validering av input har blitt implementert så langt.</p>
 <br />
-<p><p><h3>16.03.2012</h3> (2 timer)</p>
+<p><p><h2>16.03.2012</h2> (2 timer)</p>
 Slettet ved et uhell hele prosjektet gjennom Eclipse, det havnet dermed ikke i papirkurven. Fikk gjenopprettet det meste ved å rulle tilbake mappen, mistet arbeidet jeg hadde gjort det siste døgnet (innlogging og registrering + en meny og noen inputformer). For å unngå at slike ting skjer om igjen har jeg nå tatt i bruk versjonskontroll(Mercurial). Begynte med å implementere noe av det jeg hadde mistet, i tillegg begynte jeg på visning av enkeltinnlegg hvor kommentarene skal listes opp under.</p>
 <br />
-<p><p><h3>20.03.2012</h3> (4 timer)</p>
+<p><p><h2>20.03.2012</h2> (4 timer)</p>
 Alt er tilbake der det var før jeg mistet prosjektet. Har i tillegg fått på plass sending av nytt passord, passordet sendes via en gmail-konto jeg opprettet kun for dette prosjektet. Har kommet godt i gang med validering av brukerinput, det sjekkes om e-postadressen er ledig ved hjelp av AJAX, om passordene som har blitt skrevet inn er like osv.</p>
 <br />
-<p><p><h3>21.03.2012</h3> (2 timer)</p>
+<p><p><h2>21.03.2012</h2> (2 timer)</p>
 Har i dag for det meste jobbet videre med designet, har laget en ny header og en knapp, og jeg har begynt å jobbe med diverse ikoner.</p>
 <br />
-<p><p><h3>23.03.2012</h3> (2 timer)</p>
+<p><p><h2>23.03.2012</h2> (2 timer)</p>
 Har i dag for det meste gjort mer designarbeid, har laget en ny footer og puttet hele sidekartet i footeren og gjort en del andre forandringer. Har også begynt å gjøre diverse forberedelser til visning av flere innlegg.</p>
 <br />
-<p><p><h3>25.03.2012</h3> (3 timer)</p>
+<p><p><h2>25.03.2012</h2> (3 timer)</p>
 Når brukeren ber om nytt passord blir dette nå faktisk oppdatert i databasen, har wrappet mailsendingen i en egen metode siden jeg nå vil få bruk for den flere plasser. Har lagt til aktivering av brukere, det sendes en mail til brukeren etter registrering med en link til et php-skript som gjør aktiveringen. En tabell i databasen lagrer mappingen mellom brukerid og aktiveringskode. Blogginnlegg hentes nå med AJAX, flere innlegg hentes inn ved å trykke på en knapp, det kan også tenkes at dette kan skje automatisk når det scrolles til bunnen av siden. jQuery gjør det å jobbe med AJAX til en drøm. Har også begynt på kommentarer i dag.</p>
 <br />
-<p><p><h3>27.03.2012</h3> (1 time)</p>
+<p><p><h2>27.03.2012</h2> (1 time)</p>
 Tatt i bruk jQuery Validation for validering av input.</p>
 <br />
-<p><p><h3>30.03.2012</h3></p>
+<p><p><h2>30.03.2012</h2></p>
 All navigering på siden skjer nå via hashtags, siden lastes kun på nytt når det logges inn/ut, ellers baserer siden seg på skjul/vis av elementer og henting av data via AJAX. Har lagt til et bilde for å illustrere at det skjer noe når data blir lastet inn. Alt bortsett fra gradients, tekstskygge og placeholderteksten i innloggingsformen fungerer nå i Internet Explorer 9.</p>
 					</article>
 				</div>
@@ -146,7 +154,9 @@ All navigering på siden skjer nå via hashtags, siden lastes kun på nytt når det 
 						<p>TEKST</p>
 					</article>
 				</div>
-				<div id="showid"></div>
+				<div id="showid">
+					<div id="comments"></div>
+				</div>
 			</section>
 			<aside id="sidebar">
 				<section id="info">
@@ -177,6 +187,14 @@ All navigering på siden skjer nå via hashtags, siden lastes kun på nytt når det 
 					<p><a href="#">Hund (13)</a></p>
 					<p><a href="#">Kattemat (2)</a></p>
 					<p><a href="#">Bonanza (4)</a></p>
+				</section>
+				<section id="search">
+					<header>
+						<h1>Søk</h1>
+					</header>
+					<form class="form1">
+						<input type="text" />
+					</form>
 				</section>
 			</aside>		
 		</div>
@@ -220,14 +238,14 @@ All navigering på siden skjer nå via hashtags, siden lastes kun på nytt når det 
 				<p>Ken-Håvard Lieng (c) 2012</p>
 			</div>
 		</footer>
+		<div id="overlay"></div>
 	</body>
 	<script type="text/javascript">
-	var start = 0;
-	var postsPerGet = 5;
-	var currentPage = "#hjem";
-	
+	//
+	// jQuery
+	//	
 	$.extend($.validator.messages, { 
-		required: "Dette feltet må fylles ut.", 
+		required: "*", 
 		email: "Må være en gyldig e-postadresse.",
 		equalTo: "Passordene må være like."
 	});
@@ -265,37 +283,61 @@ All navigering på siden skjer nå via hashtags, siden lastes kun på nytt når det 
 			}
 		});
 
-		window.onhashchange = function() {
-			if (window.location.hash == '')
-			{
-				swapPage('#hjem');
-			}
-			else if (window.location.hash.indexOf('showid') != -1)
-			{
-				showId(window.location.hash.split('-')[1]);
-			}
-			else
-			{
-				swapPage(window.location.hash);
-			}
-		};
+		$("#confirm_button_yes").click(function() {
+			confirmed = true;
+			closeDialog('#confirm_dialog');
+		});
+
+		$("#confirm_button_no").click(function() {
+			closeDialog('#confirm_dialog');
+		});
+
+		window.onhashchange = hashHandler;		
+		hashHandler(); // Kaller denne en gang i tilfelle siden blir navigert til med et hashtag initielt
 		
-		$("#main_header h1").fadeIn("slow");
+		$("#main_header h1").fadeIn("slow");		
 		getMorePosts();
 		tick();
 	});
+
+	//
+	// Navigering
+	//	
+	var currentPage = "#hjem";
+	
+	function hashHandler()
+	{
+		if (window.location.hash == '')
+		{
+			swapPage('#hjem');
+		}
+		else if (window.location.hash.indexOf('showid') != -1)
+		{
+			showId(window.location.hash.split('-')[1]);
+		}
+		else
+		{
+			swapPage(window.location.hash);
+		}
+	}
 	
 	function swapPage(page)
 	{
-		/*$(currentPage).fadeOut("fast", function() {
-			$(page).fadeIn("fast");
-			currentPage = page;
-		});	*/
 		$(currentPage).hide();
 		$(page).show();
 		currentPage = page;
+		if (page != '#hjem')
+		{
+			$.scrollTo('#main_header', 250);
+		}
 	}
 
+	//
+	// Innhold
+	//
+	var start = 0;
+	var postsPerGet = 5;
+	
 	function getMorePosts()
 	{
 		$('#loading').insertBefore('#bottom_menu');
@@ -312,14 +354,62 @@ All navigering på siden skjer nå via hashtags, siden lastes kun på nytt når det 
 
 	function showId(id)
 	{
-		$('#showid').html('');
+		$('#showid article').remove();
+		$('#showid').append($('#loading'));		
 		swapPage('#showid');
-		$.get('listposts.php', { showid: id },
+		$('#loading').fadeIn();
+		$.get('listposts.php', { postid: id },
 			function(result) {		
-				$('#showid').html(result);
-		});		
+				$('#comments').before(result);
+				$('#loading').hide();
+		});
+		$.get('listcomments.php', { postid: id },
+			function(result) {
+				$('#comments').html(result);
+		});
 	}
 
+	function deletePost(id)
+	{
+		openDialog('#confirm_dialog', function() {
+			if (confirmed)
+			{
+				$('#blogpost-id-' + id).remove();
+				$.get('delete.php', { type: 'post', id: id });	
+				confirmed = false;
+			}
+		});			
+	}
+
+	function deleteComment(id)
+	{
+		$('#comment-id-' + id).remove();
+		$.get('delete.php', { type: 'comment', id: id });
+	}
+
+	//
+	// Dialoger
+	//
+	var confirmed = false;
+	var onDialogClose;
+
+	function openDialog(dialog, onClose)
+	{
+		$('#overlay').fadeIn();
+		$(dialog).show();
+		onDialogClose = onClose;
+	}
+
+	function closeDialog(dialog)
+	{
+		$('#overlay').hide();
+		$(dialog).hide();
+		onDialogClose();
+	}
+
+	//
+	// Klokke
+	//
 	function tick()
 	{
 		var now = new Date();

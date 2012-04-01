@@ -1,89 +1,54 @@
 <?php 
 include('dbconn.php');
+session_start();
 
 function echoPost($data, $i)
 {
-	echo '<article class="blogpost">';
-	if (isset($_SESSION['login']))
-	{
-		/*echo '<section class="postOptions">
-			  <a href="deletepost.php?id='.mysql_result($data, $i, 'id').'">Slett</a><a href="#" onClick="alert(\'Ikke implementert :(\')">Endre</a>
-			  </section>';*/
-	}
+	$id = mysql_result($data, $i, 'id');
+	$title = mysql_result($data, $i, 'title');
 	$datetime = date('d.m.Y H:i', strtotime(mysql_result($data, $i, 'datetime')));
-	echo '<header>
-	<div class="comment_bubble">
-		<a href="#showid-'.mysql_result($data, $i, 'id').'">325</a>
-	</div>
-	<h1><a href="#showid-'.mysql_result($data, $i, 'id').'">'.mysql_result($data, $i, 'title').'</a></h1>
-	<p class="date">'.$datetime.'</p>
-	</header>
-	<p>'.mysql_result($data, $i, 'content').'</p>
-	<footer>
-	'; //div class="floatleft">'.$datetime.' | <a href="#showid-'.mysql_result($data, $i, 'id').'">0 kommentarer</a></div><div class="floatright">Tags: ';
-	echo '<ul class="tags">';
+	$content = mysql_result($data, $i, 'content');
 	$tags = array_map('trim', explode(',', mysql_result($data, $i, 'tags')));
-	for ($j = 0; $j < sizeof($tags); $j++)
+	
+	echo '
+	<article class="blogpost" id="blogpost-id-'.$id.'">
+		<header>
+			<div class="comment_bubble">
+				<a href="#showid-'.$id.'">325</a>
+			</div>';
+	if (isset($_SESSION['admin']))
 	{
-		//echo '<a href="#">'.$tags[$j].'</a>';
-		echo '<li><a href="#">'.$tags[$j].'</a></li>';
-		if ($j < sizeof($tags) - 1)
+		echo '
+		<div class="post_options">
+			<a href="#">Rediger</a> <a href="javascript:void(0)" onClick="deletePost('.$id.')">Slett</a>
+		</div>';
+	}
+	echo '
+		<h1><a href="#showid-'.$id.'">'.$title.'</a></h1>
+		<p class="date">'.$datetime.'</p>
+	</header>
+	<p>'.$content.'</p>
+	<footer>';	
+	if (sizeof($tags) > 0 && $tags[0] != '')
+	{
+		echo '<ul class="tags">';		
+		for ($j = 0; $j < sizeof($tags); $j++)
 		{
-			//echo ' | ';
-		}
+			echo '<li><a href="#">'.$tags[$j].'</a></li>';
+		}	
+		echo '</ul>';
 	}	
-	echo '</ul>
-	</footer>
+	echo '</footer>
 	</article>';
 }
 
-if (isset($_GET['showid']))
+
+if (isset($_GET['postid']))
 {
-	$data = mysql_query("SELECT * FROM posts WHERE id='".$_GET['showid']."'");
-	if (mysql_numrows($data) > 0)
+	$data = mysql_query("SELECT * FROM posts WHERE id='".$_GET['postid']."'");
+	if (mysql_num_rows($data) > 0)
 	{
 		echoPost($data, 0);
-		
-		$name = utf8_encode("Ken-Håvard Lieng");
-		
-		echo '<article>
-		<header>
-			<h1>325 kommentarer</h1>
-		</header>
-		</article>
-		<article class="comment">
-			<div class="comment_image">
-				<img src="http://www.damianiconcrete.com/files/5612/9744/1263/person-placeholder.jpg" width="50" height="75">
-			</div>
-			<div class="comment_content">
-				<h2>'.$name.'</h2>
-				<p class="date">25.03.2012 18:55</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec laoreet massa in velit congue in tempus sem ultricies.</p>
-			</div>
-		</article>
-		<article class="comment">
-			<div class="comment_image">
-				<img src="http://www.damianiconcrete.com/files/5612/9744/1263/person-placeholder.jpg" width="50" height="75">
-			</div>
-			<div class="comment_content">
-				<h2>'.$name.'</h2>
-				<p class="date">25.03.2012 18:59</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec laoreet massa in velit congue in tempus sem ultricies. Nullam felis mauris, eleifend mattis consectetur eget, pulvinar vel odio. Nunc vulputate condimentum accumsan. Quisque in purus vel neque eleifend sodales. Morbi quis gravida lorem.</p>
-			</div>
-		</article>
-		<article id="new_comment">
-			<header>
-				<h1>Legg igjen en kommentar</h1>
-			</header>
-			<form id="commentform" name="commentform">
-				<p>
-					<textarea id="name" name="name"></textarea>
-				</p>
-	   			<p>
-					<input type="submit" value="OK" />
-				</p>
-			</form>					
-		</article>';
 	}
 }
 else
