@@ -1,17 +1,16 @@
 <?php
 include('dbconn.php');
 
-$result = mysql_query("SELECT * FROM users WHERE mail='".$_GET['email']."'");
-if (mysql_num_rows($result) > 0)
+$result = mysql_query("SELECT COUNT(0) FROM users WHERE mail='".$_GET['email']."'");
+if (mysql_result($result, 0) > 0)
 {
-	//echo 'Mailen er allerede i bruk.';
+	// I bruk
 	echo 'false';
 }
 else 
 {
-	//echo '';
+	// Ledig
 	echo 'true';
 }
-
 mysql_close();
 ?>

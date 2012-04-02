@@ -4,13 +4,11 @@
 	<head>
 		<title>Ken-Håvard's Blogg</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		<link rel="stylesheet" href="master.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script> -->
-		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>		
-		<script src="jquery.scrollTo-1.4.2-min.js"></script>
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans|Oswald">
+		<link rel="stylesheet" href="master.css">
 		<!--[if lte IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	</head> 
+	</head>
+	<?php flush(); ?>
 	<body>
 		<div id="dialog_container">
 			<div id="confirm_dialog">
@@ -31,6 +29,7 @@
 				<li><a href="#om-meg">OM MEG</a></li>
 				<li><a href="#logg">PROSJEKTLOGG</a></li>
 				<li><a href="#kontakt">KONTAKT</a></li>
+				<li><a href="#statistikk">STATISTIKK</a></li>
 			</ul>
 		</nav>
 		<div id="wrap">		
@@ -154,9 +153,16 @@ All navigering på siden skjer nå via hashtags, siden lastes kun på nytt når det 
 						<p>TEKST</p>
 					</article>
 				</div>
-				<div id="showid">
-					<div id="comments"></div>
+				<div id="statistikk" style="display: none;">
+					<article>
+						<p><div class="l">3295</div><div class="r">KLIKK</div></p>
+						<p><div class="l">34</div><div class="r">VISNINGER</div></p>
+						<p><div class="l">13</div><div class="r">INNLOGGINGER</div></p>
+						<p><div class="l">245</div><div class="r">KOMMENTARER</div></p>
+						<p><div class="l">13</div><div class="r">BLOGGINNLEGG</div></p>
+					</article>
 				</div>
+				<div id="showid"></div>
 			</section>
 			<aside id="sidebar">
 				<section id="info">
@@ -209,6 +215,7 @@ All navigering på siden skjer nå via hashtags, siden lastes kun på nytt når det 
 						<li><a href="#om-meg">OM MEG</a></li>
 						<li><a href="#logg">PROSJEKTLOGG</a></li>
 						<li><a href="#kontakt">KONTAKT</a></li>
+						<li><a href="#statistikk">STATISTIKK</a></li>
 					</ul>
 				</section>				
 				<section id="footer_archive">
@@ -240,193 +247,8 @@ All navigering på siden skjer nå via hashtags, siden lastes kun på nytt når det 
 		</footer>
 		<div id="overlay"></div>
 	</body>
-	<script type="text/javascript">
-	//
-	// jQuery
-	//	
-	$.extend($.validator.messages, { 
-		required: "*", 
-		email: "Må være en gyldig e-postadresse.",
-		equalTo: "Passordene må være like."
-	});
-	
-	$(document).ready(function() {
-		$("#registerform").validate({
-			highlight: function(element, errorClass) {},
-			submitHandler: function() {
-				$.post('register.php', $("#registerform").serialize());
-				document.location = 'index.php';
-			},
-			rules: {
-				email: {
-					remote: "checkemail.php"
-				},
-				pass2: {
-					equalTo: "#pass"
-				}
-			},
-			messages: {
-				email: {
-					remote: "Mailen er allerede i bruk."
-				}
-			}			
-		});
-
-		$("#newpassform").validate({
-			highlight: function(element, errorClass) {},
-			submitHandler: function() {
-				$.post('newpass.php', $("#newpassform").serialize());
-				$("#password").slideUp(function() {
-					alert('Nytt passord sendt!');
-					document.forms['newpassform'].reset();
-				});
-			}
-		});
-
-		$("#confirm_button_yes").click(function() {
-			confirmed = true;
-			closeDialog('#confirm_dialog');
-		});
-
-		$("#confirm_button_no").click(function() {
-			closeDialog('#confirm_dialog');
-		});
-
-		window.onhashchange = hashHandler;		
-		hashHandler(); // Kaller denne en gang i tilfelle siden blir navigert til med et hashtag initielt
-		
-		$("#main_header h1").fadeIn("slow");		
-		getMorePosts();
-		tick();
-	});
-
-	//
-	// Navigering
-	//	
-	var currentPage = "#hjem";
-	
-	function hashHandler()
-	{
-		if (window.location.hash == '')
-		{
-			swapPage('#hjem');
-		}
-		else if (window.location.hash.indexOf('showid') != -1)
-		{
-			showId(window.location.hash.split('-')[1]);
-		}
-		else
-		{
-			swapPage(window.location.hash);
-		}
-	}
-	
-	function swapPage(page)
-	{
-		$(currentPage).hide();
-		$(page).show();
-		currentPage = page;
-		if (page != '#hjem')
-		{
-			$.scrollTo('#main_header', 250);
-		}
-	}
-
-	//
-	// Innhold
-	//
-	var start = 0;
-	var postsPerGet = 5;
-	
-	function getMorePosts()
-	{
-		$('#loading').insertBefore('#bottom_menu');
-		$('#bottom_menu').hide();
-		$('#loading').fadeIn();
-		$.get('listposts.php', { from: start, n: postsPerGet },
-			function(result) {
-				$('#bottom_menu').before(result);				
-				$('#loading').hide();
-				$('#bottom_menu').show();
-		});
-		start += postsPerGet;		
-	}
-
-	function showId(id)
-	{
-		$('#showid article').remove();
-		$('#showid').append($('#loading'));		
-		swapPage('#showid');
-		$('#loading').fadeIn();
-		$.get('listposts.php', { postid: id },
-			function(result) {		
-				$('#comments').before(result);
-				$('#loading').hide();
-		});
-		$.get('listcomments.php', { postid: id },
-			function(result) {
-				$('#comments').html(result);
-		});
-	}
-
-	function deletePost(id)
-	{
-		openDialog('#confirm_dialog', function() {
-			if (confirmed)
-			{
-				$('#blogpost-id-' + id).remove();
-				$.get('delete.php', { type: 'post', id: id });	
-				confirmed = false;
-			}
-		});			
-	}
-
-	function deleteComment(id)
-	{
-		$('#comment-id-' + id).remove();
-		$.get('delete.php', { type: 'comment', id: id });
-	}
-
-	//
-	// Dialoger
-	//
-	var confirmed = false;
-	var onDialogClose;
-
-	function openDialog(dialog, onClose)
-	{
-		$('#overlay').fadeIn();
-		$(dialog).show();
-		onDialogClose = onClose;
-	}
-
-	function closeDialog(dialog)
-	{
-		$('#overlay').hide();
-		$(dialog).hide();
-		onDialogClose();
-	}
-
-	//
-	// Klokke
-	//
-	function tick()
-	{
-		var now = new Date();
-
-		document.getElementById('header_clock').innerHTML =
-			pad(now.getHours()) + ':' +
-			pad(now.getMinutes()) + ':' +
-			pad(now.getSeconds());
-
-		setTimeout('tick()', 1000);
-	}
-
-	function pad(n)
-	{
-		if (n < 10)
-			return '0' + n;
-		return n;
-	}
-	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+	<script src="jquery.scrollTo-1.4.2-min.js"></script>
+	<script src="main.js"></script>
 </html>

@@ -2,19 +2,19 @@
 include('dbconn.php');
 session_start();
 
-function echoPost($data, $i)
-{
-	$id = mysql_result($data, $i, 'id');
-	$title = mysql_result($data, $i, 'title');
-	$datetime = date('d.m.Y H:i', strtotime(mysql_result($data, $i, 'datetime')));
-	$content = mysql_result($data, $i, 'content');
-	$tags = array_map('trim', explode(',', mysql_result($data, $i, 'tags')));
+function echoPost($post)
+{	
+	$id = $post['id'];
+	$title = $post['title'];
+	$datetime = date('d.m.Y H:i', strtotime($post['datetime']));
+	$content = $post['content'];
+	$tags = array_map('trim', explode(',', $post['tags']));
 	
 	echo '
 	<article class="blogpost" id="blogpost-id-'.$id.'">
 		<header>
 			<div class="comment_bubble">
-				<a href="#showid-'.$id.'">325</a>
+				<a href="#vis/'.$id.'">325</a>
 			</div>';
 	if (isset($_SESSION['admin']))
 	{
@@ -24,7 +24,7 @@ function echoPost($data, $i)
 		</div>';
 	}
 	echo '
-		<h1><a href="#showid-'.$id.'">'.$title.'</a></h1>
+		<h1><a href="#vis/'.$id.'">'.$title.'</a></h1>
 		<p class="date">'.$datetime.'</p>
 	</header>
 	<p>'.$content.'</p>
@@ -42,54 +42,70 @@ function echoPost($data, $i)
 	</article>';
 }
 
-
 if (isset($_GET['postid']))
 {
-	$data = mysql_query("SELECT * FROM posts WHERE id='".$_GET['postid']."'");
-	if (mysql_num_rows($data) > 0)
+	$data = mysql_query("SELECT * FROM posts WHERE id=".$_GET['postid']);
+	if ($row = mysql_fetch_assoc($data))
 	{
-		echoPost($data, 0);
+		echoPost($row);
+	}
+	
+	echo '<div id="comments"></div>';
+	
+	if (isset($_SESSION['login']))
+	{
+		echo '		
+		<article id="new_comment">
+			<header>
+				<h1>Legg igjen en kommentar</h1>
+			</header>
+			<form id="commentform" name="commentform">
+				<p>
+					<textarea name="content"></textarea>
+				</p>
+	   			<p>
+					<input type="submit" value="OK" />
+				</p>
+			</form>					
+		</article>
+		<script type="text/javascript">
+		$("#commentform").submit(function() {
+			$.post("newcomment.php", { "postid": '.$_GET['postid'].', "content": $(\'#commentform textarea[name="content"]\').val() });
+			document.forms["commentform"].reset();
+			return false;
+		});
+		</script>';
+	}
+	else 
+	{
+		echo '
+		<article id="new_comment">
+			<header>
+				<h1>'.utf8_encode('Du må være logget inn for å kommentere').'</h1>
+			</header>
+		</article>';
 	}
 }
 else
 {
-	$max_entries_per_page = 5;
+	$num_posts = 5;
 	if (isset($_GET['n']))
 	{
-		$max_entries_per_page = $_GET['n'];
+		$num_posts = $_GET['n'];
 	}
 	
-	$start_id = 0;
+	$start = 0;
 	if (isset($_GET['from']))
 	{
-		$start_id = $_GET['from'];
+		$start = $_GET['from'];
 	}
 	
-	$data = mysql_query("SELECT * FROM posts ORDER BY datetime DESC LIMIT ".$start_id.", ".$max_entries_per_page);
-	$num_posts = mysql_num_rows($data);
+	$data = mysql_query("SELECT * FROM posts ORDER BY datetime DESC LIMIT ".$start.", ".$num_posts);
 	
-	for ($i = 0; $i < $num_posts; $i++)
-	{	
-		echoPost($data, $i);
-	}
-	
-	/*$blog = simplexml_load_file('blog.xml');
-	$entries = array();
-	foreach ($blog->entry as $entry)
+	while ($row = mysql_fetch_assoc($data))
 	{
-		if (isset($_GET['tag']))
-		{
-			$tags = array_map('trim', explode(',', $entry->tags));
-			if (in_array($_GET['tag'], $tags))
-			{
-				$entries[] = $entry;	
-			}
-		}
-		else
-		{
-			$entries[] = $entry;
-		}		
-	}*/
+		echoPost($row);
+	}
 }
 mysql_close();
 ?>
