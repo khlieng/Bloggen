@@ -18,7 +18,7 @@ $newpassword = randomPassword(10);
 $mail = $_POST['email'];
 $result = mysql_query("SELECT id FROM users WHERE mail='".$mail."'");
 $id = mysql_result($result, 0, "id");
-mysql_query("UPDATE users SET password=MD5('".$newpassword."') WHERE id='".$id."'");
+mysql_query("UPDATE users SET password=MD5('".$newpassword."') WHERE id=".$id);
 
 sendMail($_POST['email'], "Nytt passord", "Ditt nye passord er: ".$newpassword);
 

@@ -50,7 +50,7 @@ if (isset($_GET['postid']))
 		echoPost($row);
 	}
 	
-	echo '<div id="comments"></div>';
+	echo '<div id="comments"></div>';	
 	
 	if (isset($_SESSION['login']))
 	{

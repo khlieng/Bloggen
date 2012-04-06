@@ -12,7 +12,7 @@ function echoComment($comment)
 	}
 	
 	echo '
-	<article class="comment">
+	<article class="comment" id="comment-id-'.$comment['id'].'">
 		<div class="comment_image">
 			<img src="http://www.damianiconcrete.com/files/5612/9744/1263/person-placeholder.jpg" width="50" height="75">
 		</div>

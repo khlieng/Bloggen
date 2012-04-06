@@ -10,7 +10,7 @@ $.extend($.validator.messages, {
 $(document).ready(function() {
 	getMorePosts();
 	$("#main_header h1").fadeIn("slow");
-	tick();
+	//tick();
 	
 	window.onhashchange = hashHandler;		
 	hashHandler(); // Kaller denne en gang i tilfelle siden blir navigert til med et hashtag initielt
@@ -82,6 +82,22 @@ function hashHandler()
 
 function swapPage(page)
 {
+	if ($(page).hasClass('nosidebar'))
+	{
+		hideSidebar();
+	}
+	else
+	{
+		showSidebar();
+	}
+	if ($(page).hasClass('nofooter'))
+	{
+		$("#footer").hide();
+	}
+	else
+	{
+		$("#footer").show();
+	}
 	$(currentPage).hide();
 	$(page).show();
 	currentPage = page;
@@ -89,6 +105,18 @@ function swapPage(page)
 	{
 		$.scrollTo('#main_header', 250);
 	}
+}
+
+function hideSidebar()
+{
+	$("#sidebar").hide();
+	$("#content").css("width", 960);
+}
+
+function showSidebar()
+{
+	$("#content").css("width", 660);
+	$("#sidebar").show();	
 }
 
 //

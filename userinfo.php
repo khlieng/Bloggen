@@ -29,7 +29,7 @@ else
 	}
 	else
 	{
-		$result = mysql_query("SELECT * FROM users WHERE id='".$_SESSION['userid']."'");
+		$result = mysql_query("SELECT * FROM users WHERE id=".$_SESSION['userid']);
 		$name = mysql_result($result, 0, 'name');
 		echo '<p>Velkommen, '.$name.'</p>';
 		

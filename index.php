@@ -19,19 +19,17 @@
 		</div>
 		<header id="main_header">
 			<div class="headerwrap">
-				<div id="header_clock"></div>
-				<h1>KEN-HÅVARD'S BLOGG</h1>
+				<h1>KEN-HÅVARD'S BLOGG</h1>			
+				<nav id="menu">
+					<ul>
+						<li><a href="#hjem">HJEM</a></li>
+						<li><a href="#om-meg">OM MEG</a></li>
+						<li><a href="#logg">PROSJEKTLOGG</a></li>
+						<li><a href="#kontakt">KONTAKT</a></li>
+					</ul>
+				</nav>
 			</div>
-		</header>
-		<nav id="menu">
-			<ul class="headerwrap">
-				<li><a href="#hjem">HJEM</a></li>
-				<li><a href="#om-meg">OM MEG</a></li>
-				<li><a href="#logg">PROSJEKTLOGG</a></li>
-				<li><a href="#kontakt">KONTAKT</a></li>
-				<li><a href="#statistikk">STATISTIKK</a></li>
-			</ul>
-		</nav>
+		</header>		
 		<div id="wrap">		
 			<section id="content">
 				<article id="register" class="form_article">
@@ -115,7 +113,7 @@
 						<p>TEKST</p>
 					</article>
 				</div>
-				<div id="logg" style="display: none;">
+				<div id="logg" class="nosidebar" style="display: none;">
 					<article>
 						<header>
 							<h1>Prosjektlogg</h1>
@@ -153,7 +151,7 @@ All navigering på siden skjer nå via hashtags, siden lastes kun på nytt når det 
 						<p>TEKST</p>
 					</article>
 				</div>
-				<div id="statistikk" style="display: none;">
+				<div id="statistikk" class="nosidebar" style="display: none;">
 					<article>
 						<p><div class="l">3295</div><div class="r">KLIKK</div></p>
 						<p><div class="l">34</div><div class="r">VISNINGER</div></p>
@@ -163,6 +161,9 @@ All navigering på siden skjer nå via hashtags, siden lastes kun på nytt når det 
 					</article>
 				</div>
 				<div id="showid"></div>
+				<div id="logg-inn" class="nosidebar nofooter" style="display: none;">
+					
+				</div>
 			</section>
 			<aside id="sidebar">
 				<section id="info">
@@ -205,17 +206,16 @@ All navigering på siden skjer nå via hashtags, siden lastes kun på nytt når det 
 			</aside>		
 		</div>
 		<footer id="footer">
-			<div class="headerwrap">
+			<div class="clearfix headerwrap">
 				<section id="footer_sitemap">
 					<header>
 						<h1>MENY</h1>
 					</header>
 					<ul>
-						<li><a href="#hjem">HJEM</a></li>
-						<li><a href="#om-meg">OM MEG</a></li>
-						<li><a href="#logg">PROSJEKTLOGG</a></li>
-						<li><a href="#kontakt">KONTAKT</a></li>
-						<li><a href="#statistikk">STATISTIKK</a></li>
+						<li><a href="#hjem">Hjem</a></li>
+						<li><a href="#om-meg">Om meg</a></li>
+						<li><a href="#logg">Prosjektlogg</a></li>
+						<li><a href="#kontakt">Kontakt</a></li>
 					</ul>
 				</section>				
 				<section id="footer_archive">
@@ -241,8 +241,7 @@ All navigering på siden skjer nå via hashtags, siden lastes kun på nytt når det 
 						<li><a href="#">Kattemat</a></li>
 						<li><a href="#">Bonanza</a></li>
 					</ul>
-				</section>			
-				<p>Ken-Håvard Lieng (c) 2012</p>
+				</section>
 			</div>
 		</footer>
 		<div id="overlay"></div>
