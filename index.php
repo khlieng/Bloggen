@@ -22,10 +22,15 @@
 				<h1>KEN-HÅVARD'S BLOGG</h1>			
 				<nav id="menu">
 					<ul>
-						<li><a href="#hjem">HJEM</a></li>
-						<li><a href="#om-meg">OM MEG</a></li>
-						<li><a href="#logg">PROSJEKTLOGG</a></li>
-						<li><a href="#kontakt">KONTAKT</a></li>
+						<li>
+							<a href="#hjem">HJEM</a>
+						</li><li>
+							<a href="#om-meg">OM MEG</a>
+						</li><li>
+							<a href="#logg">PROSJEKTLOGG</a>
+						</li><li>
+							<a href="#kontakt">KONTAKT</a>
+						</li>
 					</ul>
 				</nav>
 			</div>
@@ -202,6 +207,9 @@ All navigering på siden skjer nå via hashtags, siden lastes kun på nytt når det 
 					<form class="form1">
 						<input type="text" />
 					</form>
+				</section>
+				<section id="feed">
+					<a href="rss"><img src="images/feed-icon-28x28.png"></a>
 				</section>
 			</aside>		
 		</div>

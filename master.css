@@ -43,10 +43,7 @@ a:hover {
 }
 
 #main_header {
-	//margin-bottom: -35px;
 	height: 75px;
-
-	//border-bottom: 5px solid #141414;
 	
 	background-image: linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
 	background-image: -o-linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
@@ -56,28 +53,28 @@ a:hover {
 }
 
 #menu {
-	padding: 5px 0px;
 	color: #FFF;
 	font: 16px Oswald, sans-serif;
-	//text-align: center;
 	float: right;
-	margin-top: 20px;
 }
 
 #menu a {
 	color: #FFF;
 	text-shadow: 0px 0px 2px rgba(0,0,0,1);
+	line-height: 75px;
+	height: 75px;
+	display: inline-block;
+	padding: 0px 15px;
 }
 
 #menu a:hover {
 	color: #B8FF11;
 	text-decoration: none;
+	background: rgba(0,0,0,0.1);
 }	
 
 #menu li {
 	display: inline-block;
-	margin-right: 20px;
-	margin-left: 22px
 }
 
 #header_clock {
@@ -445,13 +442,11 @@ button, #loginform input[type="submit"], .form1 input[type="submit"], #commentfo
 #bottom_menu {
 	display: none;
 	text-align: center;
-	margin-bottom: 20px;
+	height: 64px;
 }
 
 #bottom_menu button {
-	float: none;
-	margin: 0px 10px;	
-	horizontal-align: center;
+	margin: 0px 10px;
 }
 
 button:hover, #loginform input[type="submit"]:hover, .form1 input[type="submit"]:hover, #commentform input[type="submit"]:hover {
@@ -499,7 +494,7 @@ button:active, #loginform input[type="submit"]:active, .form1 input[type="submit
 }
 
 #loading {
-	padding: 40px;
+	height: 64px;
 	display: none;
 	background-image: url('images/loading.gif');
 	background-repeat: no-repeat;
