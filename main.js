@@ -7,8 +7,7 @@ $.extend($.validator.messages, {
 	equalTo: "Passordene må være like."
 });
 
-$(document).ready(function() {
-	getMorePosts();
+$(document).ready(function() {	
 	$("#main_header h1").fadeIn("slow");
 	//tick();
 	
@@ -47,6 +46,14 @@ $(document).ready(function() {
 		}
 	});
 
+	$("#newpostform").submit(function() {
+		$.post('newpost.php', $("#newpostform").serialize());
+		$("#newpost").slideToggle();
+		reloadPosts();
+		document.forms["newpostform"].reset();
+		return false;
+	});
+
 	$("#confirm_button_yes").click(function() {
 		confirmed = true;
 		closeDialog('#confirm_dialog');
@@ -54,6 +61,14 @@ $(document).ready(function() {
 
 	$("#confirm_button_no").click(function() {
 		closeDialog('#confirm_dialog');
+	});
+
+	$(".tabnav a").click(function(e) {
+		$(this).parent().parent().parent().children(".tab").removeClass("current");
+		$(this).parent().parent().children("li").children("a").removeClass("current");
+		$(this.hash).addClass("current");
+		$(this).addClass("current");
+		return false;
 	});
 });
 
@@ -65,18 +80,21 @@ var currentPage = "#hjem";
 function hashHandler()
 {
 	currentPostId = -1;
+
+	var split = window.location.hash.split("!/");
+	var hash = split[0] + split[1];
 	
-	if (window.location.hash == '')
+	if (window.location.hash == '' || split == null)
 	{
 		swapPage('#hjem');
 	}
-	else if (window.location.hash.indexOf('vis') != -1)
+	else if (hash.indexOf('vis') != -1)
 	{
-		showId(window.location.hash.split('/')[1]);
+		showId(hash.split('/')[1]);
 	}
 	else
 	{
-		swapPage(window.location.hash);
+		swapPage(hash);
 	}
 }
 
@@ -98,6 +116,15 @@ function swapPage(page)
 	{
 		$("#footer").show();
 	}
+
+	if (page == '#hjem' && !initialPostLoadDone)
+	{
+		$('#hjem').append('<div class="loading"></div>');
+		$('#hjem .loading').fadeIn();
+		getMorePosts();
+		initialPostLoadDone = true;
+	}
+
 	$(currentPage).hide();
 	$(page).show();
 	currentPage = page;
@@ -109,14 +136,14 @@ function swapPage(page)
 
 function hideSidebar()
 {
-	$("#sidebar").hide();
-	$("#content").css("width", 960);
+	//$("#sidebar").hide();
+	//$("#content").css("width", 960);
 }
 
 function showSidebar()
 {
-	$("#content").css("width", 660);
-	$("#sidebar").show();	
+	//$("#content").css("width", 660);
+	//$("#sidebar").show();	
 }
 
 //
@@ -125,32 +152,43 @@ function showSidebar()
 var start = 0;
 var postsPerGet = 5;
 var currentPostId;
+var initialPostLoadDone = false;
 
 function getMorePosts()
 {
-	$('#loading').insertBefore('#bottom_menu');
-	$('#bottom_menu').hide();
-	$('#loading').fadeIn();
+	//$('#loading').insertBefore('#bottom_menu');
+	//$('#bottom_menu').before('<div id="loading"></div>');
+	//$('#bottom_menu').hide();
+	//$('#loading').fadeIn();
+	$('#button_show_more').text('Henter innlegg...');
 	$.get('listposts.php', { from: start, n: postsPerGet },
 		function(result) {
 			$('#bottom_menu').before(result);				
-			$('#loading').hide();
+			$('#hjem .loading').remove();
 			$('#bottom_menu').show();
+			$('#button_show_more').text('Vis flere innlegg');
 	});
 	start += postsPerGet;		
+}
+
+function reloadPosts()
+{
+	$('#hjem .blogpost').remove();
+	start = 0;
+	getMorePosts();
 }
 
 function showId(id)
 {
 	currentPostId = id;
-	$('#showid article').remove();
-	$('#showid').append($('#loading'));		
+	$('#showid article').remove();		
 	swapPage('#showid');
-	$('#loading').fadeIn();
+	$('#showid').append($('<div class="loading"></div>'));	
+	$('#showid .loading').fadeIn();
 	$.get('listposts.php', { postid: id },
 		function(result) {		
 			$('#showid').html(result);
-			$('#loading').hide();
+			$('#showid .loading').remove();
 			updateComments(id);
 	});		
 }
@@ -173,7 +211,8 @@ function deletePost(id)
 		if (confirmed)
 		{
 			$('#blogpost-id-' + id).fadeOut();
-			$.get('delete.php', { type: 'post', id: id });	
+			$.get('delete.php', { type: 'post', id: id });
+			start--;	
 			confirmed = false;
 		}
 	});			
@@ -186,6 +225,14 @@ function deleteComment(id)
 }
 
 //
+// Brukerstuff
+//
+function resendActivation()
+{
+	$.get('sendactivation.php');
+}
+
+//
 // Dialoger
 //
 var confirmed = false;
@@ -193,6 +240,9 @@ var onDialogClose;
 
 function openDialog(dialog, onClose)
 {
+	$('#overlay').click(function(e) {
+		closeDialog(dialog);
+	});
 	$('#overlay').fadeIn();
 	$(dialog).show();
 	onDialogClose = onClose;

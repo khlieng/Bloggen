@@ -38,6 +38,7 @@ a:hover {
 	font: 36px Oswald, sans-serif;
 	display: none;
 	color: #B8FF11;
+	//color: #FF7700;
 	text-shadow: 0px 0px 5px rgba(0,0,0,1);
 	float: left;
 }
@@ -56,6 +57,7 @@ a:hover {
 	color: #FFF;
 	font: 16px Oswald, sans-serif;
 	float: right;
+	margin-right: 20px;
 }
 
 #menu a {
@@ -65,12 +67,13 @@ a:hover {
 	height: 75px;
 	display: inline-block;
 	padding: 0px 15px;
+	-webkit-transition: all 0.30s ease-in-out;
 }
 
 #menu a:hover {
 	color: #B8FF11;
 	text-decoration: none;
-	background: rgba(0,0,0,0.1);
+	//background: rgba(0,0,0,0.25);
 }	
 
 #menu li {
@@ -100,7 +103,8 @@ a:hover {
 
 #content article {
 	margin: 20px;
-	font: 15px Open Sans, sans-serif;
+	font: 14px Helvetica, sans-serif;
+	line-height: 21px;
 	//border-bottom: 1px dashed #AAA;
 }
 
@@ -119,6 +123,8 @@ a:hover {
 
 #content article h1 {
 	font: 28px Oswald, sans-serif;
+	//background: #B8FF11;
+	//padding: 10px;
 }
 
 #content article h2 {
@@ -130,8 +136,7 @@ a:hover {
 }
 
 #content article h1 a:hover {
-	color: #303030;
-	text-decoration: none;	
+	//text-decoration: none;
 }
 
 #content article header {
@@ -147,6 +152,16 @@ a:hover {
 	border-bottom: 1px dashed #AAA;
 }
 
+#buttons {
+	margin-left: -10px;
+	margin-bottom: 20px !important;
+}
+
+#buttons button {
+	margin-left: 10px;
+	width: 120px;
+}
+
 .post_options {
 	float: right;
 	margin-right: 5px;
@@ -156,7 +171,7 @@ a:hover {
 .post_options a {
 	margin-right: 5px;
 	color: #FFF;	
-	font-size: 12px;
+	font: 12px Calibri, sans-serif;
 	border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
@@ -182,9 +197,9 @@ a:hover {
 }
 
 .comment_content {
-	display: inline-block;
-	margin-left: 10px;
-	width: 555px;
+	//display: inline-block;
+	//margin-left: 10px;
+	width: 660px;
 }
 
 #commentform textarea {
@@ -271,7 +286,7 @@ a:hover {
 	float: left;
 	width: 250px;
 	font: 14px Open Sans, sans-serif;
-	margin-left: 30px;
+	margin-left: 20px;
 	margin-top: 20px;
 	margin-right: 20px;
 }
@@ -288,6 +303,7 @@ a:hover {
 #footer {
 	clear: both;
 	border-top: 10px solid #B8FF11;
+	//border-top: 10px solid #FF7700;
 	font: 16px Oswald, sans-serif;
 	text-align: center;
 	
@@ -351,15 +367,14 @@ a:hover {
 
 .form1 {
 	font: 14px Open Sans, sans-serif;
-	margin-bottom: 10px;
 }
 
 .form1 p {
-	display: table;
+	//display: table;
 }
 
 .form1 input {
-	display: table-cell;
+	//display: table-cell;
 }
 
 .form1 label {
@@ -371,6 +386,7 @@ a:hover {
 
 #loginform {
 	font: 14px Oswald, sans-serif;
+	text-align: center;
 	//padding-bottom: 30px;
 }
 
@@ -389,7 +405,7 @@ a:hover {
 }
 
 #loginform p, .form1 p {
-	margin-bottom: 5px !important;
+	margin: 5px !important;
 }
 
 #loginform a {
@@ -403,7 +419,7 @@ a:hover {
 	width: 150px;
 }
 
-button, #loginform input[type="submit"], .form1 input[type="submit"], #commentform input[type="submit"] {
+/*button, #loginform input[type="submit"], .form1 input[type="submit"], #commentform input[type="submit"] {
 	background: #000;
 	font: 16px Oswald, sans-serif;
 	color: #FFF;
@@ -437,20 +453,51 @@ button, #loginform input[type="submit"], .form1 input[type="submit"], #commentfo
 	text-shadow:
 		0px -1px 0px rgba(000,000,000,1),
 		0px 1px 0px rgba(255,255,255,0.2);
-}
+}*/
 
-#bottom_menu {
-	display: none;
-	text-align: center;
-	height: 64px;
-}
+button, #loginform input[type="submit"], .form1 input[type="submit"], #commentform input[type="submit"] {
+	background: #000;
+	font: 16px Oswald, sans-serif;
+	color: #FFF;
+	border: 1px solid #000;
+	padding: 5px;
+	width: 160px;
 
-#bottom_menu button {
-	margin: 0px 10px;
+	color: #FFF;
+	background-image: linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
+	background-image: -o-linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
+	background-image: -ms-linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
+	background: -moz-linear-gradient(top, rgb(69,69,69) 0%, #000);
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(1, rgb(69,69,69)), color-stop(0, rgb(0,0,0)));
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	//border: 1px solid #000;
+	/*-moz-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(255,255,255,0.6);
+	-webkit-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5);*/
+	//text-shadow: 0px 1px 0px rgba(000,000,000,1);
+
+		border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	//background: #222;
+	border: none;
+	border: 1px solid #004FCD;
+	color: #FFF;
+	//font: 12px Calibri, sans-serif;
+	//text-shadow: 0px 1px 0px #000;
+	padding: 5px;
+	-webkit-transition: all 0.30s ease-in-out;
+	cursor: pointer;
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(1, #156FFF), color-stop(0, #0052D6));
 }
 
 button:hover, #loginform input[type="submit"]:hover, .form1 input[type="submit"]:hover, #commentform input[type="submit"]:hover {
-	color: #B8FF11;
+	//color: #B8FF11;
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(1, #3683FF), color-stop(0, #156FFF));
 }
 
 button:active, #loginform input[type="submit"]:active, .form1 input[type="submit"]:active, #commentform input[type="submit"]:active {
@@ -463,6 +510,32 @@ button:active, #loginform input[type="submit"]:active, .form1 input[type="submit
 	text-shadow:
 		0px -1px 0px rgba(000,000,000,1),
 		0px 1px 0px rgba(255,255,255,0.2);
+
+		background-image: linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
+	background-image: -o-linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
+	background-image: -ms-linear-gradient(bottom, rgb(69,69,69) 100%, rgb(0,0,0) 0%);
+	background: -moz-linear-gradient(
+		top,
+		rgb(0,0,0) 0%,
+		rgb(69,69,69));
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(1, rgb(0,0,0)),
+		color-stop(0, rgb(69,69,69))
+	);
+}
+
+#bottom_menu {
+	display: none;
+	text-align: center;
+	height: 64px;
+}
+
+#bottom_menu button {
+	margin: 0px 10px;
 }
 
 #register, #password, #newpost { 
@@ -481,24 +554,44 @@ button:active, #loginform input[type="submit"]:active, .form1 input[type="submit
 	margin-bottom: 0px;
 }
 
-#usermenu a, #tags a, #archive a {
-	display: inline-block;
-	width: 150px;
+.sidemenu a {
+	float: left;
+	width: 240px;
 	padding: 5px 10px;
 	padding-right: 0px;
 }
 
-#usermenu a:hover, #tags a:hover, #archive a:hover {
+.sidemenu a:hover {
 	background: #B8FF11;
 	text-decoration: none;
 }
 
-#loading {
+#search input {
+	width: 228px;
+	padding: 10px;
+	//border-radius: 5px;
+	-moz-border-radius: 5px;
+	//-webkit-border-radius: 5px;
+	border: 1px solid #AAA;
+	outline: none;
+}
+
+#search input:hover {
+	border-color: #888;
+}
+
+#search input:focus {
+	border-color: #888;
+	-webkit-box-shadow: inset 0px 0px 5px rgba(0,0,0,0.5);
+}
+
+.loading {
 	height: 64px;
 	display: none;
 	background-image: url('images/loading.gif');
 	background-repeat: no-repeat;
 	background-position: center;
+	margin-top: 33%;
 }
 
 .comment_bubble {
@@ -578,6 +671,39 @@ textarea {
 	border-color:transparent #B8FF11 transparent transparent;
 }
 
+//
+// Tabs
+//
+.tabnav {
+	list-style: none;
+}
+
+.tabnav li, .tabnav a {
+	display: inline-block;
+}
+
+.tabnav a {
+	padding: 5px 20px;
+	padding-bottom: 0px;
+	text-decoration: none;
+}
+
+.tabnav a.current {
+	background: #B8FF11;
+}
+
+.tabnav a:hover:not(.current) {
+	padding-bottom: -5px;
+}
+
+.tab {
+	display: none;
+}
+
+.tab.current {
+	display: block;
+}
+
 .headerwrap {
 	width: 960px;
 	margin: 0 auto;	
@@ -602,7 +728,7 @@ textarea {
 	width: 400px;
 }
 
-#confirm_dialog {
+#confirm_dialog, #login_dialog, #register_dialog {
 	position: fixed;
 	top: 33%;
 	padding: 10px;
@@ -617,6 +743,10 @@ textarea {
 	color: #FFF;
 	width: 400px;
 	border: 1px solid #303030;
+}
+
+#login_dialog input {
+	//float: left;
 }
 
 #overlay {
@@ -649,8 +779,4 @@ html[xmlns] .clearfix {
  
 * html .clearfix {
 	height: 1%;
-}
-
-.floatleft { float: left; }
-.floatright { float: right; }
-	
+}	

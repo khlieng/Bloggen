@@ -23,5 +23,4 @@ mysql_query("UPDATE users SET password=MD5('".$newpassword."') WHERE id=".$id);
 sendMail($_POST['email'], "Nytt passord", "Ditt nye passord er: ".$newpassword);
 
 mysql_close();
-header("location:index.php");
 ?>

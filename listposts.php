@@ -9,22 +9,29 @@ function echoPost($post)
 	$datetime = date('d.m.Y H:i', strtotime($post['datetime']));
 	$content = $post['content'];
 	$tags = array_map('trim', explode(',', $post['tags']));
+
+	$num_comments = mysql_num_rows(mysql_query("SELECT id FROM comments WHERE postid=".$id));
+	$p = '';
+	if ($num_comments != 1)
+	{
+		$p = 'er';
+	}
 	
 	echo '
 	<article class="blogpost" id="blogpost-id-'.$id.'">
 		<header>
 			<div class="comment_bubble">
-				<a href="#vis/'.$id.'">325</a>
+				<a title="'.$num_comments.' kommentar'.$p.'" href="#!/vis/'.$id.'">'.$num_comments.'</a>
 			</div>';
 	if (isset($_SESSION['admin']))
 	{
 		echo '
 		<div class="post_options">
-			<a href="#">Rediger</a> <a href="javascript:void(0)" onClick="deletePost('.$id.')">Slett</a>
+			<a href="#">REDIGER</a> <a href="javascript:void(0)" onClick="deletePost('.$id.')">SLETT</a>
 		</div>';
 	}
 	echo '
-		<h1><a href="#vis/'.$id.'">'.$title.'</a></h1>
+		<h1><a href="#!/vis/'.$id.'">'.$title.'</a></h1>
 		<p class="date">'.$datetime.'</p>
 	</header>
 	<p>'.$content.'</p>
@@ -81,7 +88,7 @@ if (isset($_GET['postid']))
 		echo '
 		<article id="new_comment">
 			<header>
-				<h1>'.utf8_encode('Du må være logget inn for å kommentere').'</h1>
+				<h1>'.utf8_encode('<a href="javascript:void(0)" onClick="openDialog(\'#login_dialog\', function() {})" style="color: #FF0000;">Logg inn</a> eller <a href="javascript:void(0)" onClick="openDialog(\'#register_dialog\', function() {})" style="color: #FF0000;">registrer en ny bruker</a> for å kommentere!').'</h1>
 			</header>
 		</article>';
 	}

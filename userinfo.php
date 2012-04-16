@@ -22,7 +22,7 @@ else
 	if (isset($_SESSION['admin']))
 	{
 		echo '<p>Du er logget inn som administrator.</p>
-		<div id="usermenu">
+		<div id="usermenu" class="sidemenu">
 			<p><a href="javascript:void(0)" onClick="$(\'#newpost\').slideToggle()">Nytt innlegg</a></p>
 			<p><a href="#">Administrer brukere</a></p>
 		</div>';
@@ -36,8 +36,8 @@ else
 		if (isset($_SESSION['inactive']))
 		{
 			echo '<p>Brukeren har ikke blitt aktivert.</p>
-			<div id="usermenu">
-				<p><a href="#">Send ny aktivering</a></p>
+			<div id="usermenu" class="sidemenu">
+				<p><a href="javascript:void(0)" onClick="resendActivation()">Send ny aktivering</a></p>
 			</div>';
 		}
 	}
