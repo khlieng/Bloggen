@@ -15,7 +15,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>
         <ttl>1800</ttl>';
 while ($row = mysql_fetch_assoc($data))
 {
-	echo '	<item>
+        echo '	<item>
                 <title>'.$row['title'].'</title>
                 <description>'.$row['content'].'</description>
                 <link>http://gruppe2.dyndns.org/herp/#vis/'.$row['id'].'</link>

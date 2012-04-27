@@ -4,11 +4,12 @@ session_start();
 
 function echoPost($post)
 {	
-	$id = $post['id'];
-	$title = $post['title'];
+	$id = utf8_decode($post['id']);
+	$title = utf8_decode($post['title']);
 	$datetime = date('d.m.Y H:i', strtotime($post['datetime']));
-	$content = $post['content'];
-	$tags = array_map('trim', explode(',', $post['tags']));
+	$content = utf8_decode($post['content']);
+
+	$tags = mysql_query("SELECT * FROM tags WHERE id IN(SELECT tagid FROM tagmap WHERE postid=".$id.")");
 
 	$num_comments = mysql_num_rows(mysql_query("SELECT id FROM comments WHERE postid=".$id));
 	$p = '';
@@ -27,7 +28,7 @@ function echoPost($post)
 	{
 		echo '
 		<div class="post_options">
-			<a href="#">REDIGER</a> <a href="javascript:void(0)" onClick="deletePost('.$id.')">SLETT</a>
+			<a href="#">Rediger</a> <a href="javascript:void(0)" onClick="deletePost('.$id.')">Slett</a>
 		</div>';
 	}
 	echo '
@@ -36,13 +37,13 @@ function echoPost($post)
 	</header>
 	<p>'.$content.'</p>
 	<footer>';	
-	if (sizeof($tags) > 0 && $tags[0] != '')
+	if (mysql_num_rows($tags) > 0)
 	{
-		echo '<ul class="tags">';		
-		for ($j = 0; $j < sizeof($tags); $j++)
+		echo '<ul class="tags">';
+		while ($tag = mysql_fetch_assoc($tags))
 		{
-			echo '<li><a href="#">'.$tags[$j].'</a></li>';
-		}	
+			echo '<li><a href="#!/tag/'.$tag['url'].'">'.$tag['tag'].'</a></li>';
+		}
 		echo '</ul>';
 	}	
 	echo '</footer>
@@ -57,9 +58,16 @@ if (isset($_GET['postid']))
 		echoPost($row);
 	}
 	
-	echo '<div id="comments"></div>';	
-	
-	if (isset($_SESSION['login']))
+	if (isset($_SESSION['inactive']))
+	{
+		echo '
+		<article id="new_comment">
+			<header>
+				<h1>'.utf8_encode('Du må aktivere brukeren din for å kommentere.').'</h1>
+			</header>
+		</article>';
+	}
+	else if (isset($_SESSION['login']))
 	{
 		echo '		
 		<article id="new_comment">
@@ -82,7 +90,7 @@ if (isset($_GET['postid']))
 			return false;
 		});
 		</script>';
-	}
+	}	
 	else 
 	{
 		echo '
@@ -92,6 +100,8 @@ if (isset($_GET['postid']))
 			</header>
 		</article>';
 	}
+
+	echo '<div id="comments"></div>';
 }
 else
 {
@@ -106,12 +116,36 @@ else
 	{
 		$start = $_GET['from'];
 	}
-	
-	$data = mysql_query("SELECT * FROM posts ORDER BY datetime DESC LIMIT ".$start.", ".$num_posts);
-	
-	while ($row = mysql_fetch_assoc($data))
+
+	$data = NULL;	
+	if (isset($_GET['search']))
 	{
-		echoPost($row);
+		$data = mysql_query("SELECT * FROM posts WHERE title LIKE '%".$_GET['search']."%' OR content LIKE '%".$_GET['search']."%' OR tags LIKE '%".$_GET['search']."%' ORDER BY datetime DESC LIMIT ".$start.", ".$num_posts);
+	}
+	else if (isset($_GET['tag']))
+	{
+		$data = mysql_query("SELECT id FROM tags WHERE url='".$_GET['tag']."'");
+		if ($row = mysql_fetch_assoc($data))
+		{
+			$tagid = $row['id'];
+			$data = mysql_query("SELECT * FROM posts WHERE id IN(SELECT postid FROM tagmap WHERE tagid=".$tagid.") ORDER BY datetime DESC LIMIT ".$start.", ".$num_posts);
+		}	
+	}
+	else if (isset($_GET['month']))
+	{
+		$data = mysql_query("SELECT * FROM posts WHERE MONTH(datetime) = ".$_GET['month']." AND YEAR(datetime) = ".$_GET['year']." ORDER BY datetime DESC LIMIT ".$start.", ".$num_posts);
+	}
+	else
+	{
+		$data = mysql_query("SELECT * FROM posts ORDER BY datetime DESC LIMIT ".$start.", ".$num_posts);
+	}
+	
+	if ($data != NULL)
+	{
+		while ($row = mysql_fetch_assoc($data))
+		{
+			echoPost($row);
+		}
 	}
 }
 mysql_close();
